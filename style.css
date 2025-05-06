@@ -14,7 +14,7 @@ body {
 
 header {
   position: relative;
-  height: 300px;
+  height: 400px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -27,6 +27,7 @@ canvas {
   top: 0;
   left: 0;
   z-index: 0;
+  height: 400px;
 }
 
 header h1 {
@@ -38,6 +39,7 @@ header h1 {
   margin: 0;
   letter-spacing: 3px;
   /* text-shadow: 0 0 8px #fff7b4; */
+  font-size: 5rem;
 }
 
 header p {
@@ -45,7 +47,7 @@ header p {
   z-index: 1;
   margin-top: 0.5rem;
   color: #aaa;
-  font-size: 1.1rem;
+  font-size: 2rem;
 }
 
 nav {
@@ -71,7 +73,7 @@ nav a {
   background-color: #2b2e46;
   margin-bottom: 1.5rem;
   padding: 1.5rem;
-  border-left: 5px solid #ffffff;
+  border-left: 5px solid #03dac6;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   transition: transform 0.2s ease;
@@ -83,7 +85,7 @@ nav a {
 
 .project h2 {
   margin-top: 0;
-  color: #ffffff;
+  color: #03dac6;
 }
 
 footer {
@@ -100,13 +102,13 @@ a {
 
 header {
     position: relative;
-    height: 300px;
+    height: 400px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    background-color: #050715; /* New background color for the banner */
+    background-color: #050715;
   }
 
   .social-icons {
@@ -126,5 +128,88 @@ header {
   .social-icons img:hover {
     transform: scale(1.1);
     filter: brightness(1.3) saturate(1.5) drop-shadow(0 0 4px #ffffff);
+  }
+  
+  .about-me {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+  }
+  
+  .profile-photo {
+    float: left;
+    margin-right: 1.5rem;
+    width: 400px;
+    border-radius: 40px;
+    object-fit: cover;
+    border: 3px solid #03dac6;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  }
+  
+  .about-me h2 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    clear: both;
+  }
+  
+  .about-me p {
+    color: #ccc;
+    font-size: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  #experience, #education {
+    margin-top: 3rem;
+  }
+  
+  h2 {
+    color: #ffe81f;
+    margin-bottom: 1rem;
+  }
+  
+  .experience-item, .education-item {
+    margin-bottom: 1.5rem;
+    border-left: 3px solid #ffe81f;
+    padding-left: 1rem;
+  }
+  
+  .job-header, .edu-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .job-header h3, .edu-text h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  .job-dates, .edu-dates {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  
+  .experience-item p {
+    color: #ccc;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .education-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .edu-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background: #fff;
   }
   
