@@ -1,0 +1,111 @@
+@import url('https://fonts.cdnfonts.com/css/star-wars');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #222e4b;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+header {
+  position: relative;
+  height: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+header h1 {
+  position: relative;
+  z-index: 1;
+  font-family: 'Star Wars', sans-serif;
+  font-size: 3rem;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 3px;
+  /* text-shadow: 0 0 8px #fff7b4; */
+}
+
+header p {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.5rem;
+  color: #aaa;
+  font-size: 1.1rem;
+}
+
+nav {
+  margin-top: 1rem;
+  z-index: 1;
+  position: relative;
+}
+
+nav a {
+  color: #03dac6;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.container {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.project {
+  background-color: #2b2e46;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border-left: 5px solid #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.project:hover {
+  transform: scale(1.02);
+}
+
+.project h2 {
+  margin-top: 0;
+  color: #ffffff;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  border-top: 1px solid #333;
+}
+
+a {
+  color: #03dac6;
+}
+
+header {
+    position: relative;
+    height: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #050715; /* New background color for the banner */
+  }
+  
