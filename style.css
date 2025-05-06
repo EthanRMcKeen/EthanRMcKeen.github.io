@@ -198,18 +198,76 @@ header {
     font-size: 0.95rem;
   }
   
+  #education {
+    margin-top: 3rem;
+  }
+  
   .education-item {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    border-left: 3px solid #ffe81f;
+    padding-left: 1rem;
   }
   
   .edu-logo {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
     border-radius: 6px;
-    border: 1px solid #555;
-    background: #fff;
+    /* border: 1px solid #555; */
+    /* background: #fff; */
+    margin-right: 1rem;
+    flex-shrink: 0;
   }
+  
+  .education-content {
+    flex: 1;
+  }
+  
+  .education-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .education-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #fff;
+  }
+  
+  .edu-dates {
+    font-size: 0.9rem;
+    color: #aaa;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+  
+  .edu-degree,
+  .edu-grade {
+    font-size: 1rem;
+    color: #ccc;
+    margin: 0.2rem 0;
+  }
+  
+  details summary {
+    cursor: pointer;
+    margin-top: 0.6rem;
+    color: #fff;
+  }
+  
+  details ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+    color: #ccc;
+    font-size: 0.95rem;
+  }
+  
+  details ul li {
+    list-style-type: disc;
+    margin-bottom: 0.3rem;
+  }
+  
   
