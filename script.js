@@ -2,42 +2,89 @@ const canvas = document.getElementById('stars');
 const ctx = canvas.getContext('2d');
 
 let stars = [];
-const starCount = 200;
+const starCount = 300;
+let hyperspace = true;
 
 function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = 300;
+  const header = document.querySelector('header');
+  canvas.width = header.offsetWidth;
+  canvas.height = header.offsetHeight;
+
+  // Reset the canvas scaling to prevent distortion
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 function createStars() {
   stars = [];
   for (let i = 0; i < starCount; i++) {
+    const speed = Math.random() * 0.5 + 0.5; // Start with a fast initial speed
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5,
-      speed: Math.random() * 0.1 + 0.2
+      z: Math.random() * canvas.width, // Depth for hyperspace effect
+      speed: speed
     });
   }
 }
 
+function lerp(start, end, t) {
+  return start + (end - start) * t;
+}
+
 function animateStars() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#fff';
 
   for (let star of stars) {
     ctx.beginPath();
-    ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+    const starX = (star.x - canvas.width / 2) * (canvas.width / star.z) + canvas.width / 2;
+    const starY = (star.y - canvas.height / 2) * (canvas.width / star.z) + canvas.height / 2;
+    const starRadius = Math.max(1, 3 - star.z / (canvas.width / 2)); // Vary size based on depth
+    ctx.fillStyle = `rgba(255, 255, 255, ${1 - star.z / canvas.width})`; // Fade effect based on depth
+    ctx.arc(starX, starY, starRadius, 0, 2 * Math.PI);
     ctx.fill();
 
-    star.y += star.speed;
-    if (star.y > canvas.height) {
-      star.y = 0;
+    star.z -= star.speed * (hyperspace ? 30 : 10); // Adjust speed based on hyperspace state
+    if (star.z <= 0) {
+      star.z = canvas.width;
       star.x = Math.random() * canvas.width;
+      star.y = Math.random() * canvas.height;
     }
   }
 
   requestAnimationFrame(animateStars);
+}
+
+function addXWingAnimation() {
+  const header = document.querySelector('header');
+  const xwing = document.createElement('img');
+  xwing.src = './figs/xwing.gif';
+  xwing.alt = 'X-Wing Animation';
+  xwing.classList.add('xwing-animation');
+  header.appendChild(xwing);
+
+  // Clone the element to reset the animation
+  const freshXwing = xwing.cloneNode(true);
+  xwing.remove(); // Remove the old element
+  header.appendChild(freshXwing);
+
+  // Remove the animation after it finishes playing
+  freshXwing.addEventListener('animationend', () => {
+    freshXwing.remove();
+  });
+}
+
+function transitionHeader() {
+  const header = document.querySelector('header');
+
+  header.classList.add('shrink-header'); // Add the class to shrink the header
+
+  header.addEventListener('transitionend', (event) => {
+    if (event.propertyName === 'height') {
+      hyperspace = false; // Stop hyperspace effect
+      resize(); // Ensure the canvas resizes correctly
+      addXWingAnimation(); 
+    }
+  });
 }
 
 window.addEventListener('resize', () => {
@@ -48,3 +95,8 @@ window.addEventListener('resize', () => {
 resize();
 createStars();
 animateStars();
+
+setTimeout(() => {
+  document.querySelector('header').classList.add('fade-in');
+  transitionHeader();
+}, 1000);

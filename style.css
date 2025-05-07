@@ -14,12 +14,30 @@ body {
 
 header {
   position: relative;
-  height: 400px;
+  height: 100vh; /* Fullscreen initially */
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
+  background-color: #050715;
+  transition: height 2s ease, padding 2s ease; /* Smooth shrinking */
+}
+
+header.shrink-header {
+  height: 400px; /* Shrinks to the current size */
+}
+
+header h1, header p, nav, .social-icons {
+  opacity: 0; /* Initially hidden */
+  transition: opacity 2s ease; /* Smooth fade-in */
+}
+
+header.fade-in h1,
+header.fade-in p,
+header.fade-in nav,
+header.fade-in .social-icons {
+  opacity: 1; /* Fade in after hyperspace */
 }
 
 canvas {
@@ -27,7 +45,8 @@ canvas {
   top: 0;
   left: 0;
   z-index: 0;
-  height: 400px;
+  width: 100%; /* Ensure it spans the full width */
+  height: 100%; /* Match the header's height */
 }
 
 header h1 {
@@ -65,27 +84,8 @@ nav a {
 
 .container {
   padding: 2rem;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
-}
-
-.project {
-  background-color: #2b2e46;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  border-left: 5px solid #03dac6;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-  transition: transform 0.2s ease;
-}
-
-.project:hover {
-  transform: scale(1.02);
-}
-
-.project h2 {
-  margin-top: 0;
-  color: #03dac6;
 }
 
 footer {
@@ -100,16 +100,6 @@ a {
   color: #03dac6;
 }
 
-header {
-    position: relative;
-    height: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    background-color: #050715;
-  }
 
   .social-icons {
     margin-top: 1rem;
@@ -159,60 +149,87 @@ header {
     line-height: 1.6;
   }
   
-  #experience, #education {
+  .experience-wrapper {
+    background-color: #1a1f36;
+    padding: 2rem 0;
+    width: 100%; 
+  }
+
+  .experience-wrapper:hover {
+    background-color: #0e1225;
+    transform: scale(1.02);
+  }
+
+  #experience {
     margin-top: 3rem;
+    margin: 0 auto;
+    font-size: 2rem;
+    max-width: 1500px; /* Increase the maximum width */
+    margin-left: auto;
+    margin-right: auto;
   }
   
   h2 {
-    color: #ffe81f;
+    color: #03dac6;
     margin-bottom: 1rem;
   }
   
-  .experience-item, .education-item {
+  .experience-item{
     margin-bottom: 1.5rem;
-    border-left: 3px solid #ffe81f;
+    border-left: 3px solid #03dac6;
     padding-left: 1rem;
+    padding-left: 2rem; 
+    padding-right: 2rem;
   }
   
-  .job-header, .edu-text {
+  .job-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
   }
   
-  .job-header h3, .edu-text h3 {
+  .job-header h3 {
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     margin: 0;
   }
   
-  .job-dates, .edu-dates {
-    font-size: 0.9rem;
-    color: #aaa;
+  .job-dates {
+    font-size: 1rem;
+    color: #ffffff;
   }
   
   .experience-item p {
     color: #ccc;
     margin-top: 0.5rem;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
   }
   
   #education {
     margin-top: 3rem;
+    font-size: 2rem;
   }
   
   .education-item {
     display: flex;
     align-items: flex-start;
     margin-bottom: 2rem;
-    border-left: 3px solid #ffe81f;
+    border-left: 3px solid #03dac6;
     padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .education-item:hover {
+    background-color: #1a1f36;
+    transform: scale(1.02);
   }
   
   .edu-logo {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
     border-radius: 6px;
     /* border: 1px solid #555; */
@@ -234,20 +251,20 @@ header {
   
   .education-header h3 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     color: #fff;
   }
   
   .edu-dates {
-    font-size: 0.9rem;
-    color: #aaa;
+    font-size: 1rem;
+    color: #ffffff;
     white-space: nowrap;
     margin-left: auto;
   }
   
   .edu-degree,
   .edu-grade {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #ccc;
     margin: 0.2rem 0;
   }
@@ -255,13 +272,14 @@ header {
   details summary {
     cursor: pointer;
     margin-top: 0.6rem;
-    color: #fff;
+    color: #03dac6;
+    font-size: 0.95rem;
   }
   
   details ul {
     margin-top: 0.5rem;
     padding-left: 1.2rem;
-    color: #ccc;
+    color: #03dac6;
     font-size: 0.95rem;
   }
   
@@ -270,4 +288,19 @@ header {
     margin-bottom: 0.3rem;
   }
   
+  .xwing-animation {
+    position: absolute;
+    bottom: 0;
+    width: 250px;
+    z-index: 2;
+    animation: fly-across 1.8s ease-out forwards; /* Animation duration and easing */
+  }
   
+  @keyframes fly-across {
+    0% {
+      transform: translateX(50vw); 
+    }
+    100% {
+      transform: translateX(40vw);
+    }
+  }
