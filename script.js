@@ -65,6 +65,11 @@ function transitionHeader() {
     if (event.propertyName === 'height') {
       hyperspace = false; // Stop hyperspace effect
       resize(); // Ensure the canvas resizes correctly
+      
+      // Force the xwing GIF to restart by updating its src
+      const originalSrc = xwing.getAttribute('data-src') || xwing.src;
+      xwing.setAttribute('data-src', originalSrc); // Store the original src
+      xwing.src = `${originalSrc}?t=${Date.now()}`; // Append a unique query string
 
       xwing.style.display = 'block';
       setTimeout(() => {
