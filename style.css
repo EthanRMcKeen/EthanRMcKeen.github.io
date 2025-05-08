@@ -101,206 +101,199 @@ a {
 }
 
 
-  .social-icons {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-  
-  .social-icons img {
-    width: 32px;
-    height: 32px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    filter: grayscale(100%) brightness(0.8);
-  }
-  
-  .social-icons img:hover {
-    transform: scale(1.1);
-    filter: brightness(1.3) saturate(1.5) drop-shadow(0 0 4px #ffffff);
-  }
-  
-  .about-me {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 3rem;
-    font-size: 2rem;
-  }
-  
-  .profile-photo {
-    float: left;
-    margin-right: 1.5rem;
-    width: 400px;
-    border-radius: 40px;
-    object-fit: cover;
-    border: 3px solid #03dac6;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-  }
-  
-  .about-me h2 {
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-    clear: both;
-  }
-  
-  .about-me p {
-    color: #ccc;
-    font-size: 1.5rem;
-    line-height: 1.6;
-  }
-  
-  .experience-wrapper {
-    background-color: #1a1f36;
-    padding: 2rem 0;
-    width: 100%; 
-  }
+.social-icons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
 
-  .experience-wrapper:hover {
-    background-color: #0e1225;
-    transform: scale(1.02);
-  }
+.social-icons img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: grayscale(100%) brightness(0.8);
+}
 
-  #experience {
-    margin-top: 3rem;
-    margin: 0 auto;
-    font-size: 2rem;
-    max-width: 1500px; /* Increase the maximum width */
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  h2 {
-    color: #03dac6;
-    margin-bottom: 1rem;
-  }
-  
-  .experience-item{
-    margin-bottom: 1.5rem;
-    border-left: 3px solid #03dac6;
-    padding-left: 1rem;
-    padding-left: 2rem; 
-    padding-right: 2rem;
-  }
-  
-  .job-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .job-header h3 {
-    color: #fff;
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  
-  .job-dates {
-    font-size: 1rem;
-    color: #ffffff;
-  }
-  
-  .experience-item p {
-    color: #ccc;
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
-  }
-  
-  #education {
-    margin-top: 3rem;
-    font-size: 2rem;
-  }
-  
-  .education-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-    border-left: 3px solid #03dac6;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
+.social-icons img:hover {
+  transform: scale(1.1);
+  filter: brightness(1.3) saturate(1.5) drop-shadow(0 0 4px #ffffff);
+}
 
-  .education-item:hover {
-    background-color: #1a1f36;
-    transform: scale(1.02);
-  }
+.about-me {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+.profile-photo {
+  float: left;
+  margin-right: 1.5rem;
+  width: 400px;
+  border-radius: 40px;
+  object-fit: cover;
+  border: 3px solid #03dac6;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.about-me h2 {
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  clear: both;
+}
+
+.about-me p {
+  color: #ccc;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.experience-wrapper {
+  background-color: #1a1f36;
+  padding: 2rem 0;
+  width: 100%; 
+}
+
+.experience-wrapper:hover {
+  background-color: #0e1225;
+  transform: scale(1.02);
+}
+
+#experience {
+  margin-top: 3rem;
+  margin: 0 auto;
+  font-size: 2rem;
+  max-width: 1500px; /* Increase the maximum width */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2 {
+  color: #03dac6;
+  margin-bottom: 1rem;
+}
+
+.experience-item{
+  margin-bottom: 1.5rem;
+  border-left: 3px solid #03dac6;
+  padding-left: 1rem;
+  padding-left: 2rem; 
+  padding-right: 2rem;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.job-header h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.job-dates {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.experience-item p {
+  color: #ccc;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+#education {
+  margin-top: 3rem;
+  font-size: 2rem;
+}
+
+.education-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  border-left: 3px solid #03dac6;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.education-item:hover {
+  background-color: #1a1f36;
+  transform: scale(1.02);
+}
+
+.edu-logo {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 6px;
+  /* border: 1px solid #555; */
+  /* background: #fff; */
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.education-content {
+  flex: 1;
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.education-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.edu-dates {
+  font-size: 1rem;
+  color: #ffffff;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.edu-degree,
+.edu-grade {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin: 0.2rem 0;
+}
+
+details summary {
+  cursor: pointer;
+  margin-top: 0.6rem;
+  color: #03dac6;
+  font-size: 0.95rem;
+}
+
+details ul {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+  color: #03dac6;
+  font-size: 0.95rem;
+}
+
+details ul li {
+  list-style-type: disc;
+  margin-bottom: 0.3rem;
+}
   
-  .edu-logo {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-    border-radius: 6px;
-    /* border: 1px solid #555; */
-    /* background: #fff; */
-    margin-right: 1rem;
-    flex-shrink: 0;
-  }
-  
-  .education-content {
-    flex: 1;
-  }
-  
-  .education-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .education-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: #fff;
-  }
-  
-  .edu-dates {
-    font-size: 1rem;
-    color: #ffffff;
-    white-space: nowrap;
-    margin-left: auto;
-  }
-  
-  .edu-degree,
-  .edu-grade {
-    font-size: 1.1rem;
-    color: #ccc;
-    margin: 0.2rem 0;
-  }
-  
-  details summary {
-    cursor: pointer;
-    margin-top: 0.6rem;
-    color: #03dac6;
-    font-size: 0.95rem;
-  }
-  
-  details ul {
-    margin-top: 0.5rem;
-    padding-left: 1.2rem;
-    color: #03dac6;
-    font-size: 0.95rem;
-  }
-  
-  details ul li {
-    list-style-type: disc;
-    margin-bottom: 0.3rem;
-  }
-  
-  .xwing-animation {
-    position: absolute;
-    bottom: 0;
-    width: 250px;
-    z-index: 2;
-    animation: fly-across 1.8s ease-out forwards; /* Animation duration and easing */
-  }
-  
-  @keyframes fly-across {
-    0% {
-      transform: translateX(50vw); 
-    }
-    100% {
-      transform: translateX(40vw);
-    }
-  }
+#xwing {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none; 
+  z-index: 2; 
+  width: 250px; 
+}

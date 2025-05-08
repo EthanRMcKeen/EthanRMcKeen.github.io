@@ -54,27 +54,10 @@ function animateStars() {
   requestAnimationFrame(animateStars);
 }
 
-function addXWingAnimation() {
-  const header = document.querySelector('header');
-  const xwing = document.createElement('img');
-  xwing.src = './figs/xwing.gif';
-  xwing.alt = 'X-Wing Animation';
-  xwing.classList.add('xwing-animation');
-  header.appendChild(xwing);
-
-  // Clone the element to reset the animation
-  const freshXwing = xwing.cloneNode(true);
-  xwing.remove(); // Remove the old element
-  header.appendChild(freshXwing);
-
-  // Remove the animation after it finishes playing
-  freshXwing.addEventListener('animationend', () => {
-    freshXwing.remove();
-  });
-}
 
 function transitionHeader() {
   const header = document.querySelector('header');
+  const xwing = document.getElementById('xwing');
 
   header.classList.add('shrink-header'); // Add the class to shrink the header
 
@@ -82,7 +65,11 @@ function transitionHeader() {
     if (event.propertyName === 'height') {
       hyperspace = false; // Stop hyperspace effect
       resize(); // Ensure the canvas resizes correctly
-      addXWingAnimation(); 
+
+      xwing.style.display = 'block';
+      setTimeout(() => {
+        xwing.style.display = 'none';
+      }, 1800); //18 frames
     }
   });
 }
