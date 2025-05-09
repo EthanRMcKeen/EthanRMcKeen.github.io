@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Ethan McKeen</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="shrink-header fade-in">
+    <canvas id="stars"></canvas>
+    <h1>Ethan McKeen</h1>
+    <p>Electrical and Computer Engineer</p>
+    <nav>
+      <a href="./index.html">Home</a> <!-- Home button -->
+    </nav>
+    <div class="social-icons">
+      <a href="https://github.com/EthanRMcKeen" target="_blank">
+        <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub">
+      </a>
+      <a href="https://linkedin.com/in/ethan-mckeen" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+      </a>
+      <a href="./Ethan_McKeen_resume.pdf" download class="download-resume-button">
+        Resume
+      </a>
+    </div>
+  </header>
+
+  <div class="projects-container">
+    <h2>My Projects</h2>
+    <div class="projects-grid">
+      <div class="project-item">
+        <img src="./figs/Py-to-JS-improvement-plot.png" alt="Py-to-JS-improvement-plot">
+        <img src="./figs/JS-to-Py-improvement-plot.png" alt="JS-to-Py-improvement-plot">
+        <h3>Investigating the Role of Test Cases in LLM-Based Python and JavaScript Code Translation</h3>
+        <p>
+          This project investigates the effectiveness of test cases in translating code between
+          Python and JavaScript. We propose a pipeline that enhances translation accuracy
+          through the use of large language models (LLMs) and iterative refinement. The
+          pipeline begins by generating assertion-based synthetic test cases for the original
+          code using an LLM, followed by an initial code translation prompt that includes
+          an example translation pair and corresponding test cases. To evaluate translation
+          correctness, we execute the translated code against ground truth test cases from the
+          HumanEval-X dataset. If the initial translation fails, an iterative refinement step
+          allows the LLM to improve upon previous attempts using both the original code and
+          prior translation outputs. Experiments conducted with two LLMs—Gemini-2.0-
+          Flash and GPT-3.5-Turbo—demonstrate that incorporating test cases significantly
+          improves translation outcomes. Our findings suggest promising directions for
+          enhancing code translation systems using test-aware prompting and structured
+          model feedback.
+          <a href="https://github.com/EthanRMcKeen/LLM-Based-Python-JavaScript-Code-Translation" target="_blank">View on GitHub</a>
+        </p>
+        <a href="./reports/Code_Translation_Project_Report.pdf" download class="download-report-button">Download Report</a>
+      </div>
+      <div class="project-item">
+        <img src="./figs/chess-heatmap.PNG" alt="Chess heatmap">
+        <img src="./figs/chess-heatmap2.PNG" alt="Chess heatmap 2">
+        <h3>Vision Transformer Based Chessboard Image Analysis</h3>
+        <p>
+          This project explores the use of Vision Transformers (ViTs) for classifying individ-
+          ual chess pieces from images of chessboard squares. Unlike traditional approaches
+          that rely on convolutional neural networks (CNNs) to directly predict board states,
+          this method introduces a preprocessing pipeline that segments full-board images
+          into square-level inputs, enabling fine-grained classification. The model is trained
+          on a diverse dataset of synthetically generated chess positions featuring various
+          board and piece styles. Results show that the ViT architecture achieves high
+          classification accuracy while requiring less training data and time, thanks to its
+          superior generalization capabilities. Additionally, attention maps offer valuable
+          interpretability into the model’s decision-making process.
+          <a href="https://github.com/EthanRMcKeen/ViT-Chess-Position_Analysis" target="_blank">View on GitHub</a>
+        </p>
+        <a href="./reports/Chess_Position_Analysis_Project_Report.pdf" download class="download-report-button">Download Report</a>
+      </div>
+      <div class="project-item">
+        <img src="./figs/AAPL-paths.png" alt="AAPL paths">
+        <img src="./figs/MSFT-paths.png" alt="MSFT paths">
+        <h3>Hybrid Physics-Informed Neural Networks and Diffusion Models for Option Pricing</h3>
+        <p>
+          In this project, we propose a novel approach to financial option pricing by combin-
+          ing Physics-Informed Neural Networks (PINNs) with Diffusion Models (DMs). Traditional 
+          methods like the Black-Scholes equation assume constant
+          volatility, which can lead to inaccurate pricing in real-world markets character-
+          ized by stochastic volatility and asset price fluctuations. Other models such as
+          the Heston model, have a cha To address this limitation, we propose a hybrid
+          model where the Diffusion Model simulates the stochastic dynamics of asset prices
+          and volatility, while the PINN solves the Black-Scholes PDE, incorporating these
+          stochastic elements. This approach allows us to handle both deterministic and
+          stochastic components especially under volatile market conditions. The model will
+          be validated against real-world market data and compared with existing methods,
+          such as the Black-Scholes formula and Monte Carlo simulations.
+        </p>
+        <a href="./reports/Option_Pricing_Project_Report.pdf" download class="download-report-button">Download Report</a>
+      </div>
+      <div class="project-item">
+        <img src="./figs/blackjack-ace.PNG" alt="Blackjack ace">
+        <img src="./figs/blackjack-noace.PNG" alt="Blackjack no ace">
+        <h3>Orthogonal Learning for Causal Policy Inference in RL</h3>
+        <p>
+          This projects investigates whether the incorporation of a causal inference framework into a simple reinforce-
+          ment learning model can lead to improved decision-making results. Specifically, we would like to examine
+          how a causal model can be incorporated into Q-learning in a simulated blackjack environment, and if this
+          can improve the trained model’s win rate. Using the blackjack toy environment in the Gymnasium library
+          for Python, we can first train a traditional RL agent: the agent’s hand value, dealer’s visible card, and
+          the presence of a usable ace influence the agent’s action (hit or stick), which affects the final game outcome
+          (win, lose, or draw), i.e. the reward. We can then integrate a causal structure into the Q-learning update
+          by conditioning the expected rewards on counterfactual actions; we expect this to enable the agent to pre-
+          dict rewards with a higher success rate based on alternate decisions in the same state. Our causal question
+          therefore becomes, What is the causal effect of taking a specific action (like ‘hit’ or ‘stand’) on the final out-
+          come (e.g., ‘win’, ‘lose’, ‘draw’) of a Blackjack game, given the state of the game? This study could offer
+          insights into more robust policy learning mechanisms by integrating causal reasoning with traditional RL
+          approaches, which can have applications beyond a simple toy blackjack model, for optimizing decision-
+          making strategies in more complex real-world environments.
+        </p>
+      </div>
+      <div class="project-item">
+        <div class="gif-container">
+          <img src="./figs/pendulum.gif" alt="Pendulum">
+          <img src="./figs/lunar_lander.gif" alt="Lunar Lander">
+        </div>
+        <h3>Transformer Based Actor Critic Agent</h3>
+        <p>
+          The goal of this project is to integrate transformers into reinforcement learning to enhance the agent's 
+          ability to model long-term dependencies and improve decision-making in complex environments. By leveraging 
+          the self-attention mechanism, this approach aims to address the limitations of traditional RL architectures 
+          in handling sequential tasks. The project will evaluate whether transformers can outperform existing models, 
+          particularly in scenarios requiring long-term planning, and provide insights into their potential for advancing 
+          reinforcement learning across diverse simulated environments.
+        </p>
+        <a href="./reports/Transformer_RL_Project_Report.pdf" download class="download-report-button">Download Report</a>
+      </div>
+      <div class="project-item">
+        <img src="./figs/PCB_Asem2.gif" alt="Firewatch">
+        <h3>Remote Sensing for Forest Fires</h3>
+        <p>
+          This project was completed with a team of 5 and involves the development of a deployable prototype that 
+          exploits IoT sensors to collect near real-time data in forests and satellite data to help make informed 
+          predictions of high risk areas. This data is stored and processed on an AWS web server where the satellite 
+          and sensor data is cross referenced and used to make risk assessments of potential fire outbreaks. The IoT 
+          sensor data can reach this web server from remote areas beyond the coverage of wifi with the help of a LoRaWAN 
+          long range radio frequency gateway.
+        </p>
+      </div>
+      <div class="project-item">
+        <img src="./figs/snake.gif" alt="RL Snake Game">
+        <h3>Reinforcement Learning - Snake Game</h3>
+        <p>
+          This project recreates the game Snake but uses deep reinforcement learning to train the snake how to play and 
+          improve at the game. It uses a neural network (the Q-network) to estimate Q-values for each possible action 
+          based on the current game state. A target Q-network is maintained separately to stabilize training. The agent 
+          uses an epsilon-greedy strategy for exploration, selecting random actions with decreasing probability over time. 
+          It stores experiences (state, action, reward, next state, done) in a replay buffer and periodically samples mini-batches 
+          to update the Q-network using the Bellman equation and mean squared error loss. Training occurs every few steps, and the 
+          target network is updated to match the Q-network periodically for stability. The TensorFlow library is used to implement the 
+          neural network of the snake.
+        </p>
+      </div>
+      <div class="project-item">
+        <h3>Tetris in Java</h3>
+        <p>
+          This project recreated the popular game, Tetris, twice with two different approaches. The first approach 
+          utilized an abstract shape class and individual classes for each of the unique shapes built up from box 
+          classes. This, along with the map, is all put together in the handler and made playable via key inputs. 
+          Although this method worked it performed slower than intended so another approach was taken. The second 
+          approach involved mapping out the board as a matrix where each block corresponds to a matrix coordinate. 
+          This made hit detection very easy as each occupied block can be represented by a 1 and each unoccupied block 
+          can be represented by a 0. If the matrices corresponding to the game board and the matrix of the shape is added, 
+          any matrix index with a value of 2 indicates an overlap and the game shape should stop 1 block earlier. This also 
+          allowed for new game modes to be added with ease such as the ability to move the block off the screen to the right, 
+          for example, and have it come back onto screen on the left.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Contact: ethanrmckeen@gmail.com</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
