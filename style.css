@@ -339,7 +339,7 @@ details ul li {
 }
 
 .project-item img {
-  width: 100%;
+  width: 50%;
   height: auto;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -396,4 +396,76 @@ details ul li {
   width: 48%; 
   height: auto; 
   border-radius: 10px; 
+}
+
+#certificates {
+  margin-top: 3rem;
+  font-size: 2rem;
+}
+
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+  font-size: 1rem;
+}
+
+.certificate-item {
+  text-align: center;
+  background-color: #1a1f36;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.certificate-item img {
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.certificate-item p {
+  color: #ccc;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.certificate-item a {
+  color: #03dac6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.certificate-item a:hover {
+  text-decoration: underline;
+}
+
+.interesting-courses {
+  background-color: #1a1f36;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.interesting-courses summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #03dac6;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.interesting-courses ul {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  color: #ccc;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.interesting-courses ul li {
+  margin-bottom: 0.8rem;
+  list-style-type: disc;
 }
