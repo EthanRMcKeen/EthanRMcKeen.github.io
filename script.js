@@ -92,3 +92,34 @@ setTimeout(() => {
   document.querySelector('header').classList.add('fade-in');
   transitionHeader();
 }, 1000);
+
+
+
+// Art modal functionality for enlarging art pieces
+document.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("art-modal");
+  const modalImg = document.getElementById("modal-img");
+  const closeBtn = document.querySelector(".close-modal");
+  const artImages = document.querySelectorAll(".project-item img");
+
+  artImages.forEach(img => {
+    img.style.cursor = "pointer";
+    img.addEventListener("click", function() {
+      modal.style.display = "flex";
+      modalImg.src = this.src;
+      modalImg.alt = this.alt;
+    });
+  });
+
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+    modalImg.src = "";
+  };
+
+  modal.onclick = function(e) {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      modalImg.src = "";
+    }
+  };
+});

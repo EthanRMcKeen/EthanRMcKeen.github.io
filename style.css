@@ -85,6 +85,7 @@ nav a {
   margin: 0 1rem;
   text-decoration: none;
   font-weight: bold;
+  font-size: 2rem;
 }
 
 .container {
@@ -329,6 +330,31 @@ details ul li {
   padding: 0 2rem; 
 }
 
+.projects-container h2 {
+  font-size: 3rem;
+  color: #03dac6;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.projects-container h3 {
+  font-size: 2.4rem;
+  color: #03dac6;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  border-left: 8px solid #03dac6;
+  padding-left: 1rem;
+  background: linear-gradient(90deg, #000000 10%, #1a1f36 100%);
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 2px 12px rgba(3,218,198,0.15);
+}
+
+.projects-container .projects-grid {
+  margin-bottom: 3rem;
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); 
@@ -474,4 +500,39 @@ details ul li {
 .interesting-courses ul li {
   margin-bottom: 0.8rem;
   list-style-type: disc;
+}
+
+.art-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+}
+
+.art-modal .modal-content {
+  display: block;
+  max-width: 90vw;
+  max-height: 80vh;
+  margin: auto;
+  border-radius: 20px;
+  box-shadow: 0 0 40px #03dac6;
+}
+
+.art-modal .close-modal {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  color: #fff;
+  font-size: 4rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
+  text-shadow: 0 0 10px #03dac6;
 }
