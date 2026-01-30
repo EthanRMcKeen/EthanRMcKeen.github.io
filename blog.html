@@ -44,8 +44,29 @@
   </main>
 
   <script>
-    // Example posts: edit or append new objects to add posts.
     const posts = [
+    {
+        title: 'Double Jumping - 2',
+        date: '2026-01-30',
+        content: `  <p>BUG: The double jump will occasionally be consumed when leaping off of a wall which, when combined with the wall jump force, results in a very large jump.</p>
+                    <blockquote>FIX: Manually clear the queued jump after the wall jump or when the player stops wall running to prevent HandleJump() from treating the
+                      input as an additional air double-jump.</blockquote>
+                    <p>Initially I considered a wall run the same as touching the ground where it would refund your air double jump. Then a wall jump would consume a jump meaning only
+                      air jump (double jump) could be performed.</p>
+                    <blockquote>In practice it makes more sense for the wall run to refund maxJumps - 1 (and not have a wall jump consume a jump) otherwise the player can run along the
+                      full wall and use 2 in air double jumps once they are off the wall.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Double Jumping',
+        date: '2026-01-29',
+        content: `  <p>I added the ability to double jump when in the air but if the jump button is held the player will not double jump to preserve the b-hop functionality.</p>
+                    <p>BUG: The double jump occasionally fails.</p>
+                    <blockquote>Input checks and performing the jumps were being performed in Update and FixedUpdate loops making a working double jump rare. 
+                      If no FixedUpdate happens during that frame that Input.GetKeyDown() is true then no ujmp will occur.</blockquote>
+                    <blockquote>FIX: Latch the player's jump queue. </blockquote>`,
+        images: []
+    },
     {
         title: 'User Feedback 1',
         date: '2026-01-28',
