@@ -338,6 +338,15 @@ details ul li {
   letter-spacing: 2px;
 }
 
+/* Make blog titles match the projects title styling */
+.blog-container h2 {
+  font-size: 3rem;
+  color: #03dac6;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
 .projects-container h3 {
   font-size: 2.4rem;
   color: #03dac6;
@@ -536,3 +545,52 @@ details ul li {
   z-index: 10000;
   text-shadow: 0 0 10px #03dac6;
 }
+
+.blog-container{
+  max-width:900px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.posts{
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+.post{background:rgba(255,255,255,0.03);
+  padding:18px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+.post h2{margin:0 0 6px;
+  font-size:1.4rem;
+}
+
+.post .meta{color:#bbb;
+  font-size:.9rem;
+  margin-bottom:12px;
+}
+
+.post img{max-width:100%;
+  height:auto;
+  border-radius:6px;
+  margin-top:10px;
+}
+
+.post .images{display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.post .images img{
+  width:calc(50% - 5px);
+}
+
+.note{color:#ddd;
+  font-size:.95rem;
+  margin-bottom:18px;
+}
+
+@media(max-width:600px){.post .images img{width:100%}}

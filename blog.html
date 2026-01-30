@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Ethan McKeen</title>
+  <link href="https://fonts.cdnfonts.com/css/star-wars" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="shrink-header fade-in">
+    <canvas id="stars"></canvas>
+    <h1>Ethan McKeen</h1>
+    <p>Electrical & Computer Engineer | Machine Learning Specialist</p>
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./projects.html">Projects</a>
+      <a href="./art.html">Art</a>
+    </nav>
+    <div class="social-icons">
+      <a href="https://github.com/EthanRMcKeen" target="_blank">
+        <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub">
+      </a>
+      <a href="https://linkedin.com/in/ethan-mckeen" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+      </a>
+      <a href="./Ethan_McKeen_resume.pdf" download class="download-resume-button">
+        Resume
+      </a>
+    </div>
+  </header>
+
+  <main class="blog-container">
+    <h2>Game Development Blog</h2>
+    <p class="note">Here compiles some short posts about my learning process and notes in game development.
+        I am developing a small movement based game in my free time to practice programming and game design skills.
+        I am attempting to replicate the feeling of strafing and b-hopping from classic Source engine games while including some additional movement techniques like wallrunning and sliding. 
+        I am developing this game in Unity 6 and the latest build should be available on my github.
+    </p>
+
+    <section id="posts" class="posts" aria-live="polite">
+      <!-- Posts will be rendered here by script -->
+    </section>
+  </main>
+
+  <script>
+    // Example posts: edit or append new objects to add posts.
+    const posts = [
+    {
+        title: 'User Feedback 1',
+        date: '2026-01-28',
+        content: `  <p>NOTE: Since I do not have the ability to provide and receive mass player feedback I just had my friends try it out.</p>
+                    <p>A minimal setting menu with a sensitivity slider was added to help the users giving me feedback more seemlessly try the game.</p>
+                    <p>BUG: While sliding down a ramp the dashing does not work properly.</p>
+                    <blockquote>Similar to the jumping bug, the dash and slide functions were overwritting eachother and downward momentum was being carried into the dash.</blockquote>
+                    <blockquote>FIX: Manually stop sliding when beginning a dash.</blockquote>
+                    <p>The wall runnning does not feel very intuitive and the player often gets stuck.</p>
+                    <blockquote>FIX 1: Add a minimum veolcity so the player will move at this speed at minimum when starting to wall run (prevents the feeling of being stuck on the wall).</blockquote>
+                    <blockquote>FIX 2: Changed the control scheme so the player does not have to hold A or D to start wall running (controls are more similar to titanfall).</blockquote>
+                    <blockquote>FIX 3: Increased the hitbox detection of a wall next to the player to make attaching to walls feel more responsive and snappy (less strict).</blockquote>
+                    <blockquote>FIX 5: Removed the functionality where pressing the opposite direction key of the wall would make the player pop off the wall. This made jumping between walls
+                        harder because the player would often press space and the opposite key at the same time but for the intended behaviour the space bar must be pressed first. This meant the
+                        player often fell off the wall when they did not want to.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Dashing',
+        date: '2026-01-27',
+        content: `  <p>The player can dash by pressing E which applies an impulse force forward.</p>
+                    <blockquote>Added the ability to dash in any direction based off WASD not the camera direction. (will play with this more later)</blockquote>
+                    <p>BUG: When dashing an impulse force is applied in the camera direction but this does feel good if trying to dash in the opposite direction of your momentum.</p>
+                    <blockquote>For example if you have speed in the +x direction then dash in the -x direction you will continue in the +x direction but slower.</blockquote>
+                    <blockquote>FIX: Zero velocity in directions not parallel to the camera when dashing.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Camera FX',
+        date: '2026-01-26',
+        content: `  <p>I added FOV increases when the player is wall running and sliding.</p>
+                    <blockquote>This makes the movement feel more dynamic.</blockquote>
+                    <p>I also made the camera tilt when the players is wall running.</p>`,
+        images: []
+    },
+    {
+        title: 'Debugging and Tuning',
+        date: '2026-01-25',
+        content: `  <p>BUG: When starting a wall run and jumping between walls, if only the forward velocity is conserved then the movement does not flow very well and feels very strict/limited.</p>
+                    <blockquote>FIX: The player still conserves all of their speed parallel to the face of the wall but also retains a portion of their horizontal speed normal to the wall.</blockquote>
+                    <p>NOTE: The player can reset their wallrunning timer on the same wall allowing for effectively infinite wallrunning on one wall. (Decide whether to keep based off user tests)</p>
+                    <p>BUG: After starting to slide down a slope jumping does not work, the player jolts up slightly like it tried to jump but gains barely any height (can only successfully jump if the
+                        button is pressed 2x rapidly)</p>
+                    <blockquote>Cause: Jumping and slide functions are overwriting each other: jump zeroes y velocity, sliding tries to conserve it.</blockquote>
+                    <blockquote>FIX: Manually calling stop sliding when a jump is detected.</blockquote>
+                    <blockquote>BUG - UNRESOLVED: Running into a wall and holding forward, you can stay in the air floating.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Wall Running - 2',
+        date: '2026-01-24',
+        content: `  <p>BUG: The player can gain a lot of movement speed by jumping between walls.</p>
+                    <blockquote>This is because the player gains a lot of horizontal movement speed from the immpulse force applied when the player jumps. Considering all of the horizontal speed is conserved
+                        going into a wall run the player gains a lot of speed.</blockquote>
+                    <blockquote>FIX: The player only conserves their speed parallel to the face of the wall.</blockquote>
+                    <p>BUG: Gravity pulls down the player too much while wall runnning.</p>
+                    <blockquote>I cannot simply turn off gravity while on the wall because it will feel unrealistic running perfectly straight on a wall.</blockquote>
+                    <blockquote>FIX: I added a small counter force upwards but still less than gravity.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Wall Running',
+        date: '2026-01-23',
+        content: `  <p>By pressing A or D while being next to a wall the player will enter a wall running state.</p>
+                    <blockquote>To make this feel easier the player does not have to hold A or D to keep wall running.</blockquote>
+                    <blockquote>To make this feel more responsive the player can press the opposite direction A or D to pop off the wall.</blockquote>
+                    <p>The player will keep their movement speed when entering a wall run.</p>
+                    <blockquote>This was added because big part of this movement system is momentum conservation and I dont want it to feel like the player hits a wall when they start wall running.</blockquote>
+                    <p>By pressing space while wall running the player can now jump off the wall allowing the player to jump between walls easier.</p>`,
+        images: []
+    },
+    {
+        title: 'Sliding - 2',
+        date: '2026-01-22',
+        content: `  <p>BUG: When sliding down a ramp the player jitters and bounces.</p>
+                    <blockquote>Fixed this by ensuring the applied sliding acceleration is parallel to the slope or ground below the player.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Sliding',
+        date: '2026-01-21',
+        content: `  <p>By pressing CTRL to crouch while sprinting with SHIFT the player is able to slide.</p>
+                    <p>The player is able to maintain their speed when going into a slide but also their direction so they have to be more calculated with their slides.</p>
+                    <blockquote>This also mean the player should be able to slide without holding WASD if they have enough momentum.</blockquote>
+                    <p>The slide should have a time limit so the player cannot slide with perfect momentum conservation forever.</p>
+                    <blockquote>However, things like being in the air or sliding down a ramp should reset this timer so the player can string jumps/slides together easily and slide down the full
+                        length of a ramp.</blockquote>
+                    <p>The player is able to gain speed by sliding down a slope.</p>
+                    <blockquote>This makes slopes feel more meaningful, realistic, and provides another reliable way to gain speed apart from b-hopping.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Slopes - 2',
+        date: '2026-01-20',
+        content: `  <p>BUG: When standing idle on a slope the player will begin to slide down due to gravity.</p>
+                    <blockquote>One way to solve this is by turning off gravity on slopes but thiswould mean the players slides around like its made of ice.</blockquote>
+                    <blockquote>FIX: I fixed this by adding a force to cancel the gravity parallel to the slope so there is only a gravity component normal to the slope when the player is idle.</blockquote>
+                    <p>BUG: When the player is holding just space (jump) on a slope they will slowly climb up the slope.</p>
+                    <blockquote>This is due to the horizontal component of the gravity pushing the player into the slope after the previous fix.</blockquote>
+                    <blockquote>Attempted Fix: Only apply the new gravity vector when idle. This causes an issue is because when buffering a jump (due to source style engine) the player is in a 
+                        limbo state of being idle but having a buffered jump so the jump still had a horizontal force.</blockquote>
+                    <blockquote>Correct Fix: only apply new gravity vector when idle and no input is buffered</blockquote>
+                    <p>BUG: When crouching on a slope the player will begin to slide down due to gravity.</p>
+                    <blockquote>FIX: Since crouching is a state the player was not considered idle so the original gravity vector was being applied.</blockquote>`,
+        images: []
+    },
+    {
+        title: 'Slopes',
+        date: '2026-01-19',
+        content: `  <p>My inital movement script works on flat ground but in all of my times playing games I never thought about how big of an impact slopes have on the movement system.</p>
+                    <blockquote>If the player is walking on flat ground it makes sense to accelerate them along a flat horizontal plane (xz plane) but this does not work if they are on a slope.</blockquote>
+                    <blockquote>At all times the player has to be accelerating in a direction perpendicular to the surface normal they are standing on.</blockquote>
+                    <p>The ability to crouch was also added by pressing CTRL.</p>`,
+        images: []
+    },  
+    {
+        title: 'Initial Prototype',
+        date: '2026-01-17',
+        content: `  <p>The goal of this inital prototype is to build a basic movement system that feels responsive, smooth, and familiar to players of Source engine games.
+                    The key goal is to make the movement feel good because I believe this is a crucial baseline for a fun game.</p>
+
+                    <p>Initial gameplay ideas:</p>
+                    <blockquote>Have the movement system simple enough to pickup easily but have a high skill ceiling to allows players to express themselves and their skills
+                        purely through the control of their movement.</blockquote>
+                    <blockquote>This can be acheived through including concepts like b-hopping and strafing inspired by the Source engine.</blockquote>
+                    <blockquote>The player can further express thier skill with the addition of momentum conservation. This promotes the player to have fluid movement and string
+                        together multiple techniques.</blockquote>
+                    <blockquote>The movement from the Source engine can be expanded upon and made more unique by including things like sliding, wallrunning, double jumping etc...</blockquote>`,
+        //images: ['./figs/xwing.gif']
+        images: []
+    },
+    {
+        title: 'Source Style Movement',
+        date: '2026-01-18',
+        content: `  <p>I have implemented the basic WASD and mouse camera control movement system and have learned several things:</p>
+                    <p>For more Source style strafing and b-hopping a tradition movement system cannot be used.</p>
+                    <p>Source movement relies on a very specific combination of quirks: air acceleration that allows players to gain speed while not grounded, friction values 
+                        that do not immediately clamp velocity, and input handling that translates strafe keys plus mouse movement into directional acceleration.</p>
+                    <p>A conventional more realistic movement system minimizes air control and clamps velocity more than I would like.</p>
+                    <blockquote>This means the player cannmt build or maintain momentum, cannot redirect velocity smoothly, and cannot chain jumps to conserve their speed.</blockquote>
+                    <p>The ability to sprint with SHIFT was also added.</p>
+                    <p>The player can jump with space and continually jump by holding space to start stringing together b-hops.</p>`,
+        images: []
+    }
+    ];
+
+    function renderPosts() {
+      const container = document.getElementById('posts');
+      // Clear existing
+      container.innerHTML = '';
+      // Sort posts by date descending
+      posts.sort((a,b)=> (a.date < b.date ? 1 : -1));
+      posts.forEach(p => {
+        const article = document.createElement('article');
+        article.className = 'post';
+        const title = document.createElement('h2');
+        title.textContent = p.title;
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.textContent = new Date(p.date).toLocaleDateString();
+        const content = document.createElement('div');
+        content.className = 'content';
+        content.innerHTML = p.content;
+        article.appendChild(title);
+        article.appendChild(meta);
+        article.appendChild(content);
+        if (p.images && p.images.length){
+          const imagesWrap = document.createElement('div');
+          imagesWrap.className = 'images';
+          p.images.forEach(src=>{
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = p.title + ' image';
+            imagesWrap.appendChild(img);
+          });
+          article.appendChild(imagesWrap);
+        }
+        container.appendChild(article);
+      });
+    }
+
+    // Initial render
+    renderPosts();
+  </script>
+  <script src="./script.js"></script>
+</body>
+</html>
