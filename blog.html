@@ -104,7 +104,7 @@
                     <p>BUG: Gravity pulls down the player too much while wall runnning.</p>
                     <blockquote>I cannot simply turn off gravity while on the wall because it will feel unrealistic running perfectly straight on a wall.</blockquote>
                     <blockquote>FIX: I added a small counter force upwards but still less than gravity.</blockquote>`,
-        images: []
+        images: ['./figs/wall_run_demo.gif']
     },
     {
         title: 'Wall Running',
@@ -122,7 +122,7 @@
         date: '2026-01-22',
         content: `  <p>BUG: When sliding down a ramp the player jitters and bounces.</p>
                     <blockquote>Fixed this by ensuring the applied sliding acceleration is parallel to the slope or ground below the player.</blockquote>`,
-        images: []
+        images: ['./figs/slide_demo.gif']
     },
     {
         title: 'Sliding',
@@ -162,6 +162,19 @@
         images: []
     },  
     {
+        title: 'Source Style Movement',
+        date: '2026-01-18',
+        content: `  <p>I have implemented the basic WASD and mouse camera control movement system and have learned several things:</p>
+                    <p>For more Source style strafing and b-hopping a tradition movement system cannot be used.</p>
+                    <p>Source movement relies on a very specific combination of quirks: air acceleration that allows players to gain speed while not grounded, friction values 
+                        that do not immediately clamp velocity, and input handling that translates strafe keys plus mouse movement into directional acceleration.</p>
+                    <p>A conventional more realistic movement system minimizes air control and clamps velocity more than I would like.</p>
+                    <blockquote>This means the player cannmt build or maintain momentum, cannot redirect velocity smoothly, and cannot chain jumps to conserve their speed.</blockquote>
+                    <p>The ability to sprint with SHIFT was also added.</p>
+                    <p>The player can jump with space and continually jump by holding space to start stringing together b-hops.</p>`,
+        images: ['./figs/bhop_demo.gif']
+    },
+    {
         title: 'Initial Prototype',
         date: '2026-01-17',
         content: `  <p>The goal of this inital prototype is to build a basic movement system that feels responsive, smooth, and familiar to players of Source engine games.
@@ -174,20 +187,6 @@
                     <blockquote>The player can further express thier skill with the addition of momentum conservation. This promotes the player to have fluid movement and string
                         together multiple techniques.</blockquote>
                     <blockquote>The movement from the Source engine can be expanded upon and made more unique by including things like sliding, wallrunning, double jumping etc...</blockquote>`,
-        //images: ['./figs/xwing.gif']
-        images: []
-    },
-    {
-        title: 'Source Style Movement',
-        date: '2026-01-18',
-        content: `  <p>I have implemented the basic WASD and mouse camera control movement system and have learned several things:</p>
-                    <p>For more Source style strafing and b-hopping a tradition movement system cannot be used.</p>
-                    <p>Source movement relies on a very specific combination of quirks: air acceleration that allows players to gain speed while not grounded, friction values 
-                        that do not immediately clamp velocity, and input handling that translates strafe keys plus mouse movement into directional acceleration.</p>
-                    <p>A conventional more realistic movement system minimizes air control and clamps velocity more than I would like.</p>
-                    <blockquote>This means the player cannmt build or maintain momentum, cannot redirect velocity smoothly, and cannot chain jumps to conserve their speed.</blockquote>
-                    <p>The ability to sprint with SHIFT was also added.</p>
-                    <p>The player can jump with space and continually jump by holding space to start stringing together b-hops.</p>`,
         images: []
     }
     ];
