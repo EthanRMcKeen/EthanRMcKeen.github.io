@@ -46,6 +46,19 @@
   <script>
     const posts = [
     {
+        title: 'Dashing - 2',
+        date: '2026-01-31',
+        content: `  <p>The original dash was implemented by applying an impulse force to the player which felt more like a speed boost than a proper dash.
+                        This also meant the player could chain dashes and gain a lot of speed.</p>
+                    <blockquote>To fix this I changed the implementation to move the player over a specified distance in a specified time.</blockquote>
+                    <p>BUG: If you dash while falling the player will fall very fast after the dash ends.</p>
+                    <blockquote>FIX: Reset the player's vertical velocity after the dash ends.</blockquote>
+                    <p>BUG: The player can dash through solid obects.</p>
+                    <blockquote>FIX: Add a mask and raycast to check for objects in the dash direction.</blockquote>
+                    <p>Both dashed can be seen below. The original implementation is on the left and the fixed version is on the right.</p>`,
+        images: ['./figs/dash1_demo.gif', './figs/dash2_demo.gif']
+    },
+    {
         title: 'Double Jumping - 2',
         date: '2026-01-30',
         content: `  <p>BUG: The double jump will occasionally be consumed when leaping off of a wall which, when combined with the wall jump force, results in a very large jump.</p>
