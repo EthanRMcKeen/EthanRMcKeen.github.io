@@ -46,6 +46,21 @@
   <script>
     const posts = [
     {
+        title: 'Ground Slam',
+        date: '2026-02-01',
+        content: `  <p>I have implemented a ground slam feature where the player can press C in the air to slam down on the ground.</p>
+                    <blockquote>This come with 2 features: tapping C lets the player slam down but keep their momentum, holding C lets the player slam straight down
+                      and their momentum is only restored after landing.</blockquote>
+                    <p>BUG: The slam state was originally only reset when the player landed on the ground but I want dashing and double jumping to also cancel the slam.</p>
+                    <blockquote>FIX: Manually reset the slam state in the dash and double jump functions.</blockquote>
+                    <blockquote>This means jumping can also be used for conserving momentum after a super slam.</blockquote>
+                    <p>BUG: Unrealted to the gorund slam, I noticed that sliding then jumping without releasing the slide input would cause the player to land in a crouch 
+                      not a slide.</p>
+                    <blockquote>FIX: I added a resume-on-landing flag/system so if a player starts sliding, jumps, and continues holding the slide + sprint keys, they will
+                      automatically start sliding.</blockquote>`,
+        images: []
+    },
+    {
         title: 'Dashing - 2',
         date: '2026-01-31',
         content: `  <p>The original dash was implemented by applying an impulse force to the player which felt more like a speed boost than a proper dash.
