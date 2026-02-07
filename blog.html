@@ -46,6 +46,19 @@
   <script>
     const posts = [
     {
+        title: 'Animations-3',
+        date: '2026-02-06',
+        content: `  <p>I learned how to use the 'any state' block in Unity's Animator to declutter the animation transitions.</p>
+                    <p>I learned it is helpful to have a seperate hitbox gameobject rather than add a collider directly to the weapon.</p>
+                    <blockquote>This makes debugging easier as you can show/hide the hitbox while it is active.</blockquote>
+                    <p>BUG: When jumping and landing while attacking the animation would cancel but the hitbox would still go out.</p>
+                    <blockquote>FIX: In the animator only transition to jump if isJumping is true and isLightAttacking is false.</blockquote>
+                    <p>BUG: After gaining speed then attacking the player would maintain a lot of speed during the attack duration.</p>
+                    <blockquote>FIX: Ensure while the player is attacking the max speed is set to the default walk speed.</blockquote>
+                    <p>Added an enemy script to keep track of health and damage and play hit or death animations.</p>`,
+        images: []
+    },
+    {
         title: 'Animations-2',
         date: '2026-02-05',
         content: `  <p>I modeled a low poly sword for the character to swing so that I can start learning how to do hitbox/collision detection.</p>
