@@ -46,6 +46,27 @@
   <script>
     const posts = [
     {
+        title: 'User Feedback 2',
+        date: '2026-02-08',
+        content: `  <p>Dashing feels clunky, like you hit a wall after doing it and it does not flow with the other movement well.</p>
+                    <blockquote>This feeling is because I initially had dashing stop your momentum after the dash to prevent the player
+                      from gaining too much speed.</blockquote>
+                    <blockquote>FIX: I gave the player a static movment speed after exiting dash.</blockquote>
+                    <blockquote>This makes it so the player doesn't gain extra speed from dashing but does not feel like they hit a 
+                      wall and lost all momentum.</blockquote>
+                    <p>Spamming jump and slam will make the player constantly jitter from the rapid movement.</p>
+                    <blockquote>FIX: I put a cooldown on the slam attack so it can't be spammed.</blockquote>
+                    <p>Dashing into the ground will make the player jitter as they are pushed out of the ground.</p>
+                    <blockquote>Initially to prevent the player from dashing through surfaces I used a raycast to detect a collision.</blockquote>
+                    <blockquote>This raycast method works but is not optimal as it doesnt take into account the player height so they could 
+                      still clip partially into surfaces.</blockquote>
+                    <blockquote>FIX: I switched the raycast to a capsule cast.</blockquote>
+                    <p>Sliding feels unresponsive as the player is locked into the direction they started sliding in.</p>
+                    <blockquote>FIX: I gave the player directional control while sliding but used lerp to smoothly transition
+                      to the new direction so the sliding is not jarring/snappy.</blockquote>`,
+        images: []
+    },
+    {
         title: 'Animations-3',
         date: '2026-02-06',
         content: `  <p>I learned how to use the 'any state' block in Unity's Animator to declutter the animation transitions.</p>
