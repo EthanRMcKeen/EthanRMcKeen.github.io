@@ -46,6 +46,20 @@
   <script>
     const posts = [
     {
+        title: 'Combat-2',
+        date: '2026-02-10',
+        content: `  <p>Player can parry the enemy's attack by timing their attack at the same time as the enemy's attack.</p>
+                    <blockquote>Currently parrying will prevent the player from taking damage and trigger a hit animation for the enemy.</blockquote>
+                    <p>BUG: The player would only take damage if they walked into an active hitbox, not if they were already in the hitbox.</p>
+                    <blockquote>FIX: This is how Unity;s logic works so to properly use a collider it should only be enabled during the hitbox window.</blockquote>
+                    <p>BUG: The player can take multiple instances of damage from one attack if they keep entering/leaving the hitbox.</p>
+                    <blockquote>FIX: During a detected collison, store a hashset of targets that were already hit so they can't be hit twice in one attack.</blockquote>
+                    <p>BUG: Despite parrying the player would still take damage.</p>
+                    <blockquote>FIX: Ensure that on being parried the enemy's attack is cancelled (sometimes the hit animation would play but the attack
+                      hitbox would still go out).</blockquote>`,
+        images: []
+    },
+    {
         title: 'Combat',
         date: '2026-02-09',
         content: `  <p>Both the player and enemy (velociraptor as placeholder) can attack and take damage.</p>
