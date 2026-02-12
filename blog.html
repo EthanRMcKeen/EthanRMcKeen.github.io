@@ -46,7 +46,18 @@
   <script>
     const posts = [
     {
-        title: 'Combat-2',
+        title: 'Parrying and Particle Effects',
+        date: '2026-02-10',
+        content: `  <p>Originally I had an enemy's attack parryable during the entire animation window but this did not make alot of sense.</p>
+                    <blockquote>This meant the player could parry an attack that was already over, which is not how parrying should work.</blockquote>
+                    <blockquote>FIX: The enemy is parryable up until the hitbox is active.</blockquote>
+                    <p>I added a simple splatter effect to the enemy when hit.</p>
+                    <p>I also added a spark effect after a successful parry.</p>
+                    <p>NOTE: Parrying still not feel that satisfying, new parry animations, sound effects, and camera effects might help with this.</p>`,
+        images: ['./figs/parry_demo.gif']
+    },
+    {
+        title: 'Parrying',
         date: '2026-02-10',
         content: `  <p>Player can parry the enemy's attack by timing their attack at the same time as the enemy's attack.</p>
                     <blockquote>Currently parrying will prevent the player from taking damage and trigger a hit animation for the enemy.</blockquote>
@@ -55,7 +66,7 @@
                     <p>BUG: The player can take multiple instances of damage from one attack if they keep entering/leaving the hitbox.</p>
                     <blockquote>FIX: During a detected collison, store a hashset of targets that were already hit so they can't be hit twice in one attack.</blockquote>
                     <p>BUG: Despite parrying the player would still take damage.</p>
-                    <blockquote>FIX: Ensure that on being parried the enemy's attack is cancelled (sometimes the hit animation would play but the attack
+                    <blockquote>FIX: Ensure that on being parried the enemy's attack is cancelled (sometimes the parried animation would play but the attack
                       hitbox would still go out).</blockquote>`,
         images: []
     },
