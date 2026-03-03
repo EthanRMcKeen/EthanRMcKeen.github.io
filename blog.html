@@ -46,6 +46,23 @@
   <script>
     const posts = [
     {
+        title: 'Character Animations',
+        date: '2026-03-2',
+        content: `  <p>Added the new character model and animations into Unity.</p>
+                    <p>Included new animations and logic for rolling/dodging, wall running on both sides, blocking and attacking.</p>
+                    <p>BUG: Jumping causes the weapon hitbox to trigger.</p>
+                    <blockquote>FIX: I was forcing the an attack to cancel after jumping but if there was no attack to cancel this caused a bug with the hitbox.</blockquote>
+                    <p>BUG: Jumping animation is delayed and very quick.</p>
+                    <blockquote>FIX: For a brief few frames at the start of a jump the player was entering the unkown state of my state machine (Put there to catch bugs like this).
+                      The issue came from the state handler logic misshandling how a queued jump was processed.</blockquote>
+                    <p>BUG: wallrunning causes the jump and wall run animations to constantly alternate.</p>
+                    <blockquote>FIX: Since there is no jumping state (only an in air state) the animation handler checked that a jump was used and the player was not grounded to play
+                      the jump animation. Now that we have a wall run animation this logic is too simple and must also check that the player is not wall running.</blockquote>
+                    <p>BUG: Rapidly attacking causes the attack hitbox timing to get misaligned with the animation.</p>
+                    <blockquote>FIX: Use animation events rather than timers for hitboxes.</blockquote>`,
+        images: []
+    },
+    {
         title: 'Character Animations and Cloth Simulation',
         date: '2026-02-27',
         content: `  <p>Updated the walking running and idle animations.</p>
