@@ -46,6 +46,21 @@
   <script>
     const posts = [
     {
+        title: 'Character Animations-2',
+        date: '2026-03-3',
+        content: `  <p>BUG: The attack animation was cutting off before finishing.</p>
+                    <blockquote>FIX: I redesigned and redeveloped the animation system to use state machine handled entirely in code.</blockquote>
+                    <blockquote>I was initially using a bools to control the animation transitions but this caused issues and didnt entirely make sense for one time actions like
+                      jumping or attacking which traditionally use a trigger parameter.</blockquote>
+                    <blockquote>By implementing the state machine entirelt in code I was also able to greatly clean up the animator clutter and I find I have much more control
+                      over the animation flow.</blockquote>
+                    <blockquote>I did find other ways to solve this bug (like adding an animation event at the end of the attack animation to end the attack state) but overall this
+                      redesign was much more robust and maintainable for future development.</blockquote>
+                    <p>BUG: Crouching and attacking only worked for the first attack.</p>
+                    <blockquote>FIX: Since I am missing animation events my animation state machine is not updated properly for those states.</blockquote>`,
+        images: []
+    },
+    {
         title: 'Character Animations',
         date: '2026-03-2',
         content: `  <p>Added the new character model and animations into Unity.</p>
