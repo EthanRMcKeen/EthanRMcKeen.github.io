@@ -496,8 +496,6 @@
       const container = document.getElementById('posts');
       // Clear existing
       container.innerHTML = '';
-      // Sort posts by date descending
-      posts.sort((a,b)=> (a.date < b.date ? 1 : -1));
       posts.forEach(p => {
         const article = document.createElement('article');
         article.className = 'post';
@@ -505,7 +503,7 @@
         title.textContent = p.title;
         const meta = document.createElement('div');
         meta.className = 'meta';
-        meta.textContent = new Date(p.date).toLocaleDateString();
+        meta.textContent = p.date;
         const content = document.createElement('div');
         content.className = 'content';
         content.innerHTML = p.content;
