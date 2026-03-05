@@ -46,6 +46,16 @@
   <script>
     const posts = [
     {
+        title: 'Cloth Simulation',
+        date: '2026-03-4',
+        content: `  <p>NOTE: Certain parts of my model have only one face (like the cloth waistcape) which causes issues because both sides have the same texture.</p>
+                    <blockquote>This should be fixed in the future so that both sides will have a unique texture and shade as expected.</blockquote>
+                    <p>The shaders that came with Unity cull backfaces by default so I had to make my own shader so that both sides of the cloth would be visible.</p>
+                    <blockquote>This is a temporary solution and should be reverted once the cloth model has two faces.</blockquote>
+                    <p>As mentioned in a previous post, the Blender cloth simulation does not work when exporting to Unity, but the cloth simulation is now fully implemented using Unity.</p>`,
+        images: ['./figs/cloth_demo.gif']
+    },    
+    {
         title: 'Character Animations-2',
         date: '2026-03-3',
         content: `  <p>BUG: The attack animation was cutting off before finishing.</p>
