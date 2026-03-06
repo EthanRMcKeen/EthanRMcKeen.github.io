@@ -46,6 +46,15 @@
   <script>
     const posts = [
     {
+        title: 'Attack Combo',
+        date: '2026-03-5',
+        content: `  <p>Added a 3 hit combo to the character's attack animation.</p>
+                    <blockquote>After a short delay if the combo is not fully executed the next attack will start from the beginning.</blockquote>
+                    <p>NOTE: When exporting an fbx model from blender to Unity, make sure the model is in its default T pose otherwise the cloth model will not lay properly.</p>
+                    <blockquote>Also when re-importing into Unity, double check the cloth simulation pins (I noticed sometimes they were not properly set).</blockquote>`,
+        images: ['./figs/lightcombo_demo.gif']
+    }, 
+    {
         title: 'Cloth Simulation',
         date: '2026-03-4',
         content: `  <p>NOTE: Certain parts of my model have only one face (like the cloth waistcape) which causes issues because both sides have the same texture.</p>
