@@ -46,10 +46,21 @@
   <script>
     const posts = [
     {
+        title: 'Crouch Animations',
+        date: '2026-03-6',
+        content: `  <p>Added animations for crouching while idle and crouching while moving.</p>
+                    <p>Crouching now properly shortens the player's capsule colliders.</p>
+                    <blockquote>NOTE: The player has 2 capsule colliders: one is a trigger for detecting attacks and the other is the collider for the environment.</blockquote>
+                    <p>BUG: The collider is in the center of the player so when the height is reduced, the player's legs clip through the environment.</p>
+                    <blockquote>FIX: Adjust the collider position to account for the reduced height.</blockquote>`,
+        images: []
+    }, 
+    {
         title: 'Attack Combo',
         date: '2026-03-5',
         content: `  <p>Added a 3 hit combo to the character's attack animation.</p>
                     <blockquote>After a short delay if the combo is not fully executed the next attack will start from the beginning.</blockquote>
+                    <blockquote>During an animation if the player clicks, the next attack in the combo will be buffered.</blockquote>
                     <p>NOTE: When exporting an fbx model from blender to Unity, make sure the model is in its default T pose otherwise the cloth model will not lay properly.</p>
                     <blockquote>Also when re-importing into Unity, double check the cloth simulation pins (I noticed sometimes they were not properly set).</blockquote>`,
         images: ['./figs/lightcombo_demo.gif']
