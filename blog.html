@@ -46,6 +46,19 @@
   <script>
     const posts = [
     {
+        title: 'Character Animations-3',
+        date: '2026-03-11',
+        content: `  <p>I added animations for moving left, right, and backwards.</p>
+                    <p>To smoothly transition between these animations, and even interpolate diagonal movements, I learned how to implement an animation blend tree.</p>
+                    <blockquote>The blend tree can take into account the x and y movement inputs and account for the player being idle as well.</blockquote>
+                    <blockquote>This means it is also resilient if a player's inputs cancel (eg. holding both left and right -> the player remains idle) which was an
+                      issue with the previous implementation.</blockquote>
+                    <p>BUG: When rolling the animation is always forward even when dodging in a different direction.</p>
+                    <blockquote>FIX: In the script that keeps the player model facing the camera orientation, I added a flag that will make the player face the movement
+                      direction instead (this flag is set high during a roll).</blockquote>`,
+        images: []
+    },
+    {
         title: 'VFX',
         date: '2026-03-9',
         content: `  <p>I started learning how VFX are made in Unity.</p>
