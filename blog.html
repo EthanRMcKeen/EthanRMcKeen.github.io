@@ -46,7 +46,28 @@
   <script>
     const posts = [
     {
-        title: 'Character Animations-3',
+        title: 'Animation Blending-2',
+        date: '2026-03-12',
+        content: `  <p>As mentioned in the previous post, one use for animation blending is to create smooth transitions between related states like walking in all
+                      directions. The other use is for playing multiple animations simultaneously on different body parts.</p>
+                    <p>Since I had a full body animtaion for attacking the player would stop moving their legs when attacking or blocking etc.. despite still being
+                      in motion.</p>
+                    <blockquote>To fix this I added a new animation layer for the character's upper body.</blockquote>
+                    <blockquote>This means animations like attacking or blocking, which only need to move the upper body, can play while the characters legs are being
+                      animated in another layer (that can handle walking animations).</blockquote>
+                    <p>BUG: Attack animations can lock movement animations (eg. when jumping and attacking the player's legs will remain in the jump animation until
+                      the attack animation completes even if the player has landed).</p>
+                    <blockquote>FIX: This is because all the player states were being updated in one state machine. It makes much more sense to separate the states into
+                      a movement state machine and a combat state machine.</blockquote>
+                    <blockquote>This will also help with future trouble shooting as it is easier to determine if the player is walking while attacking versus jumping
+                      while attacking etc...</blockquote>
+                    <p>BUG: When a player attacks the upper body remains in the attack animation.</p>
+                    <blockquote>FIX: The upper body layer needs an empty state block to default to so if no upper body animations is specified it can rely entirely on the
+                      movement layer to animate the upper body.</blockquote>`,
+        images: ['./figs/animation_blend_demo.gif']
+    },
+    {
+        title: 'Animation Blending',
         date: '2026-03-11',
         content: `  <p>I added animations for moving left, right, and backwards.</p>
                     <p>To smoothly transition between these animations, and even interpolate diagonal movements, I learned how to implement an animation blend tree.</p>
