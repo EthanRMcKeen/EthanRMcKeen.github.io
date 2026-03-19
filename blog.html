@@ -46,8 +46,27 @@
   <script>
     const posts = [
     {
+        title: 'Viewmodel-2',
+        date: '2026-03-18',
+        content: `  <p>I really like the look of 2d viewmodel animations in games like og Doom and Blood High.</p>
+                    <p>This type of viewmodel is typically hand drawn but I wanted to try to get a similar effect in 3D using a pixelated
+                      cel shader.</p>
+                    <p>I am happy with the result but I beleive it can look even better if I add a black outline.</p>`,
+        images: []
+    },
+    {
+        title: 'Viewmodel',
+        date: '2026-03-17',
+        content: `  <p>Given that I want this game to be first person I needed to make a first person viewmodel.</p>
+                    <blockquote>Some of my previous posts showed the game in third person but this was just to show off the animations.</blockquote>
+                    <blockquote>In first person mode a lot of the animations clip through the camera and look bad so a seperate viewmodel is needed.</blockquote>
+                    <p>I created 2 arms in blender holding a simple gun model to start with that follow the orientation of the camera.</p>
+                    <p>I updated my player cam script to adjust the x orientation of the player and not just the y orientation.</p>`,
+        images: []
+    },
+    {
         title: 'Animation Blending-3',
-        date: '2026-03-12',
+        date: '2026-03-13',
         content: `  <p>Similarly to the walking animation, the character now has animations to crouch walk in all directions.</p>
                     <p>These animations are blended/interpolated using another blend tree.</p>`,
         images: []
