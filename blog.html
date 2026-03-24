@@ -46,6 +46,15 @@
   <script>
     const posts = [
     {
+        title: 'Bug Fixing',
+        date: '2026-03-23',
+        content: `  <p>Fixed an issue where the first person camera was not aligned properly when croushing.</p>
+                    <p>Fixed an issue where the viewmodel was not aligned properly when crouching.</p>
+                    <p>Fixed an issue where the viewmodel was not rotating around the right axis when looking around and crouching.</p>
+                    <blockquote>These issues started after the crouching was fixed to reduce hitbox height rather than capsule scale.</blockquote>`,
+        images: []
+    },
+    {
         title: 'Viewmodel Shader-2',
         date: '2026-03-20',
         content: `  <p>Discovered another artifact in the outline shader, the outline thickness changes if their is an object behind it.</p>
