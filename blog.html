@@ -46,6 +46,20 @@
   <script>
     const posts = [
     {
+        title: 'Networking and Bug Fixing',
+        date: '2026-03-30',
+        content: `  <p>Currently working/learning with a friend how to implement multiplayer features into the game.</p>
+                    <p>To implement these features a new build was created for testing but due to subtle differences in the implementation
+                      some issues arose that might be helpful to document:</p>
+                      <blockquote>BUG: When looking around the camera jitters and it is especially noticeable when moving while looking
+                        around.</blockquote>
+                      <blockquote>FIX 1: The player rigid body interpolation should be set to interpolate.</blockquote>
+                      <blockquote>FIX 2: The camera should not be a child of a rigidbody (it should be seperate but the position should
+                        be set to the rigidbody/player).</blockquote>
+                      <blockquote>FIX 3: The camera position and rotation should be in late update and the rotate rigidbody should be in fixed update.</blockquote>`,
+        images: []
+    },
+    {
         title: 'Viewmodel Animation',
         date: '2026-03-25',
         content: `  <p>Created a simple texture for the viewmodel.</p>
