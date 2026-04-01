@@ -35,7 +35,7 @@
     <p class="note">Here compiles some short posts about my learning process and notes in game development.
         I am developing a small movement based game in my free time to practice programming and game design skills.
         I am attempting to replicate the feeling of strafing and b-hopping from classic Source engine games while including some additional movement techniques like wallrunning and sliding. 
-        I am developing this game in Unity 6 and the latest build should be available on my github.
+        I am developing this game in Unity 6.
     </p>
 
     <section id="posts" class="posts" aria-live="polite">
@@ -45,6 +45,20 @@
 
   <script>
     const posts = [
+    {
+        title: 'WallRun Bug Fixes',
+        date: '2026-03-31',
+        content: `  <p>BUG: Occasionally the player would get kicked off of the wall during a wall run.</p>
+                    <blockquote>This issues arose after changing the ground check raycast into a sphere cast.</blockquote>
+                    <blockquote>One solution is to remove the ground check entirely while wall running but this means the player will stay 
+                      on the wall when they reach the bottom of it.</blockquote>
+                    <blockquote>FIX: Adjusted the sphere cast radius and position while wall running to remove intersection with the
+                      wall (mistaking it for ground).</blockquote>
+                    <p>After the wall run timer expires the player could jump back onto the same wall to effectively wallrun forever.</p>
+                    <blockquote>To fix this I added a cooldown period after exiting a wall run.</blockquote>
+                    <blockquote>2 cooldowns are stored for left and right wall runs so that the player can switch between them rapidly.</blockquote>`,
+        images: []
+    },
     {
         title: 'Networking and Bug Fixing',
         date: '2026-03-30',
