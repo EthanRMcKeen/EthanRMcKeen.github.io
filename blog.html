@@ -46,6 +46,20 @@
   <script>
     const posts = [
     {
+        title: 'More Bug Fixes',
+        date: '2026-04-12',
+        content: `  <p>After combining codebases to include multiplayer functionality a few bugs arose/re-arose.</p>
+                    <p>BUG: The player is not able to dash through objects with thivkness but a plane can be dashed through.</p>
+                    <blockquote>FIX: The plane's mesh collider should be set to convex.</blockquote>
+                    <blockquote>Since the player can dash in all directions they could jump and dash slighty toward the ground which will
+                      immediately kill all their forward speed. This will be addressed in the next playtest as a system where the player is
+                      resricted to only upward angle dashes (a downward dash will default to parallel with the floor) might feel smoother or
+                      might feel too restrictive.</blockquote>
+                    <p>BUG: The player could start a slide then jump and be locked into a slide state.</p>
+                    <blockquote>FIX: This was a bug with the ground checking logic when stopping a slide.</blockquote>`,
+        images: []
+    },    
+    {
         title: 'WallRun Bug Fixes',
         date: '2026-03-31',
         content: `  <p>BUG: Occasionally the player would get kicked off of the wall during a wall run.</p>
