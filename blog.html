@@ -46,6 +46,24 @@
   <script>
     const posts = [
     {
+        title: 'Items and Buffs',
+        date: '2026-04-22',
+        content: `  <p>Developed a scalable system for managing items and buffs in the game. I wanted to make items that work similar to a rogue like
+                        where the player can pick up multiple items (essentially creating an inventory of items) that give them stacking buffs.</p>
+                    <p>This system was accomplished using 4 key scripts:</p>
+                    <ul>
+                        <li>ItemDefinition.cs - A ScriptableObject that defines item properties (ID, display name, and prefab).</li>
+                        <li>ItemBase.cs - An abstract base class for all items, with ApplyBuff() and RemoveBuff() methods that
+                          subclasses must implement.</li>
+                        <li>ItemController.cs - Manages the player's item inventory/loadout. It instantiates item instances from
+                          the loadout array and applies their buffs on startup. Supports stacking by allowing multiple entries of
+                          the same item.</li>
+                        <li>&lt;BuffName&gt;Item.cs - A concrete item implementation that defines the logic of the buff. For example
+                          it can increase the player's move speed. Each instance adds its bonus, allowing stacking.</li>
+                    </ul>`,
+        images: []
+    },  
+    {
         title: 'More Bug Fixes',
         date: '2026-04-12',
         content: `  <p>After combining codebases to include multiplayer functionality a few bugs arose/re-arose.</p>
