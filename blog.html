@@ -46,6 +46,28 @@
   <script>
     const posts = [
     {
+        title: 'Weapon System',
+        date: '2026-04-27',
+        content: `  <p>A weapon system is implemented using a similar system to the item system.</p>
+                    <ul>
+                        <li>WeaponDefinition.cs - Defines the data/configuration for a weapon (e.g., name, prefab, cooldowns). It is
+                          a ScriptableObject holding weapon settings.</li>
+                        <li>WeaponBase.cs - An abstract MonoBehaviour that represents the runtime logic for a weapon. It uses a WeaponDefinition
+                          for its data and provides base methods for weapon actions (primary attack, abilities).</li>
+                        <li>WeaponController.cs - Inherits from CombatController and manages weapon usage for a player, handling input and
+                          switching weapons.</li>
+                        <li>&lt;WeaponName&gt;.cs - Inherits from WeaponBase and implements the specific behavior for that weapon type.</li>
+                    </ul>
+                    <p>Two different ranged weapons were developed initally. One is a proectile based weapon (proectile has a velocity and
+                      time to hit the enemy), the other is a hit scan weapon that used a ray cast to immediately detect hits.</p>
+                    <p>BUG: Very occasionally the hit would not be detected on an enemy (I struggled a lot to consistently recreate the issue).</p>
+                    <blockquote>FIX: There were a couple issues causing this. The first is that since the player themselves have a hitbox, the 
+                      weapon's hit detection would occasionally collide with the player's own hitbox. This was solved with a simple damage layer mask.
+                      The second issues was that the hitbox of the projectile should be configured as a trigger otherwise it would occasionally
+                      pass through an enemy without detecting the hit.</blockquote>`,
+        images: []
+    },
+    {
         title: 'Items and Buffs',
         date: '2026-04-22',
         content: `  <p>Developed a scalable system for managing items and buffs in the game. I wanted to make items that work similar to a rogue like
