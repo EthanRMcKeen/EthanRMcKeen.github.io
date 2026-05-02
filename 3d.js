@@ -17,7 +17,7 @@ renderer.toneMappingExposure = 1.2;
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 // ── Lighting ───────────────────────────────────────────────────────────────
-scene.add(new THREE.AmbientLight(0x334466, 0.8));
+scene.add(new THREE.AmbientLight(0x334466, 1.5));
 const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
 keyLight.position.set(5, 8, 5);
 keyLight.castShadow = true;
@@ -79,8 +79,8 @@ const STATES = {
     yawOffset: Math.PI,
   },
   FOCUS: {
-    position:  new THREE.Vector3(0, 1.6, 2),
-    yawOffset: 0,
+    position:  new THREE.Vector3(0.4, 1.5, 1.7),
+    yawOffset: 0.1 * Math.PI,
   },
 };
 
@@ -307,8 +307,8 @@ loader2.load(
     gltf2 = loadedGltf;
     const model = gltf2.scene;
     model.scale.setScalar(0.1);
-    model.position.set(-0.3, 1, 0.7);
-    model.rotation.y = -0.1 * Math.PI;
+    model.position.set(-0.25, 1, 0.7);
+    model.rotation.y = -0.15 * Math.PI;
     const box = new THREE.Box3().setFromObject(model);
     model.traverse(node => {
       if (node.isMesh) {
@@ -318,8 +318,8 @@ loader2.load(
       }
     });
     model2 = model;
-    model2.visible = false; // hidden by default
     scene.add(model2);
+    model2.visible = false; // hidden by default
   },
   xhr => console.log('Model 2: ' + (xhr.loaded / xhr.total * 100).toFixed(1) + '% loaded'),
   err => console.error('Error loading model 2:', err)
