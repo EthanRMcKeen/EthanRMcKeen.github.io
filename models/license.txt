@@ -1,0 +1,11 @@
+Model Information:
+* title:	BT-7274
+* source:	https://sketchfab.com/3d-models/bt-7274-934abf35aeb84d128ffba1eadbc4aed5
+* author:	Palurdas Arts (https://sketchfab.com/PalurdasArts)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "BT-7274" (https://sketchfab.com/3d-models/bt-7274-934abf35aeb84d128ffba1eadbc4aed5) by Palurdas Arts (https://sketchfab.com/PalurdasArts) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

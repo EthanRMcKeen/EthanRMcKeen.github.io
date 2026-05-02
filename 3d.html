@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <link rel="stylesheet" href="./3d.css">
+  </head>
+  <body>
+    <div id="canvas-container"></div>
+
+    <div id="hud">
+    <!-- Tall left panel -->
+    <div class="panel" id="panel-left">
+        <div class="panel-title">// System Log</div>
+        <div class="panel-content">
+        <p>Model loaded successfully.</p><br>
+        <p>Mesh count: —</p>
+        <p>Triangles: —</p>
+        <p>Animations: —</p><br>
+        <p style="color:rgba(80,160,255,0.5)">────────────</p><br>
+        <p>Use this panel for any text content, logs, or descriptions you want to display.</p><br>
+        <p>Supports scrolling for longer content.</p><br>
+        <p style="color:rgba(80,160,255,0.5)">────────────</p><br>
+        <p>W/A/S/D — Move</p>
+        <p>E/Q — Up / Down</p>
+        <p>Mouse — Look</p>
+        </div>
+    </div>
+
+    <!-- 2x2 right panels -->
+    <div id="panels-right">
+        <div class="panel">
+        <div class="panel-title">// Panel 01</div>
+        <div class="panel-content">
+            <div class="panel-img">[ IMAGE ]</div>
+            <p>Add an image or text here.</p>
+        </div>
+        </div>
+        <div class="panel">
+        <div class="panel-title">// Panel 02</div>
+        <div class="panel-content">
+            <div class="panel-img">[ IMAGE ]</div>
+            <p>Add an image or text here.</p>
+        </div>
+        </div>
+        <div class="panel">
+        <div class="panel-title">// Panel 03</div>
+        <div class="panel-content">
+            <div class="panel-img">[ IMAGE ]</div>
+            <p>Add an image or text here.</p>
+        </div>
+        </div>
+        <div class="panel">
+        <div class="panel-title">// Panel 04</div>
+        <div class="panel-content">
+            <div class="panel-img">[ IMAGE ]</div>
+            <p>Add an image or text here.</p>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="crosshair"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script type="module" src="/3d.js"></script>
+  </body>
+</html>
