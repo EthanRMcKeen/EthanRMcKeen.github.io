@@ -3,14 +3,15 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0a0a0f);
 scene.fog = new THREE.FogExp2(0x0a0a0f, 0.04);
 
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.001, 1000);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
 camera.position.set(0, 1.9, -0.1);
 camera.rotation.order = 'YXZ';
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.2;
@@ -18,10 +19,6 @@ document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 // ── Lighting ───────────────────────────────────────────────────────────────
 scene.add(new THREE.AmbientLight(0x334466, 1.5));
-const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
-keyLight.position.set(5, 8, 5);
-keyLight.castShadow = true;
-//scene.add(keyLight);
 const fillLight = new THREE.DirectionalLight(0x4477aa, 0.8);
 fillLight.position.set(-4, 2, -3);
 scene.add(fillLight);
@@ -94,11 +91,16 @@ let gltf = null;
 let gltf2 = null;
 let model2 = null;
 let model2Timer = null;
+let model2Loaded = false;
 
 let mouseYaw = Math.PI, mousePitch = 0;
 let currentYaw = Math.PI, currentPitch = 0;
 const LOOK_RANGE = Math.PI / 6;
 let mouseOffsetX = 0, mouseOffsetY = 0;
+
+// ── Animation state flags ──────────────────────────────────────────────────
+let isAnimating = false; // true only while the GLTF animation is playing
+let mixer = null;
 
 // ── State Machine ──────────────────────────────────────────────────────────
 function transitionTo(stateName, panelId) {
@@ -111,11 +113,15 @@ function transitionTo(stateName, panelId) {
     activePanel = panelId;
     collapseHUD();
 
-    // Play animation once
-    if (mixer) {
+    if (mixer && gltf?.animations?.length) {
       const action = mixer.clipAction(gltf.animations[0]);
       action.reset();
+      action.paused = false;
       action.play();
+      isAnimating = true;
+
+      // Stop ticking mixer once the clip ends
+      mixer.addEventListener('finished', () => { isAnimating = false; }, { once: true });
     }
 
     collapseTimer = setTimeout(() => transitionTo('FOCUS'), 1200);
@@ -124,17 +130,18 @@ function transitionTo(stateName, panelId) {
   if (stateName === 'FOCUS') {
     showDetailHUD(activePanel);
 
-    // Show model2 after x seconds
-    model2Timer = setTimeout(() => {
-      if (model2) model2.visible = true;
-    }, 100); // x = 0.5 seconds, change to taste
+    // Add model2 to scene lazily on first FOCUS (avoids per-frame cost until needed)
+    if (model2Loaded && model2) {
+      if (!model2.parent) scene.add(model2);
+      model2Timer = setTimeout(() => { model2.visible = true; }, 100);
+    }
   }
 
   if (stateName === 'DEFAULT') {
     clearTimeout(collapseTimer);
-    clearTimeout(model2Timer);  // cancel if back is pressed before it appears
+    clearTimeout(model2Timer);
     activePanel = null;
-    if (model2) model2.visible = false; // hide again when returning to default
+    if (model2) model2.visible = false;
     showMainHUD();
   }
 }
@@ -149,7 +156,6 @@ function collapseHUD() {
 }
 
 function showMainHUD() {
-  // Rebuild main panels if needed
   document.getElementById('hud').innerHTML = buildMainHUD();
   requestAnimationFrame(() => {
     document.querySelectorAll('.panel').forEach((p, i) => {
@@ -232,59 +238,63 @@ function attachPanelListeners() {
   });
 }
 
-// ── Mouse look (no movement, just look) ───────────────────────────────────
+// ── Mouse look ─────────────────────────────────────────────────────────────
+let mouseDirty = false;
 window.addEventListener('mousemove', e => {
-  const nx = (e.clientX / window.innerWidth)  * 2 - 1;
-  const ny = (e.clientY / window.innerHeight) * 2 - 1;
-  mouseOffsetX = -nx * LOOK_RANGE;
-  mouseOffsetY = -ny * (LOOK_RANGE * 0.6);
+  if (mouseDirty) return;
+  mouseDirty = true;
+  requestAnimationFrame(() => {
+    const nx = (e.clientX / window.innerWidth)  * 2 - 1;
+    const ny = (e.clientY / window.innerHeight) * 2 - 1;
+    mouseOffsetX = -nx * LOOK_RANGE;
+    mouseOffsetY = -ny * (LOOK_RANGE * 0.6);
+    mouseDirty = false;
+  });
 });
 
 // ── Update camera (lerp position) ─────────────────────────────────────────
-function updateCamera() {
-  // Lerp position
-  camera.position.lerp(camTarget, 0.02);
+const LERP_POS = 0.02;
+const LERP_ROT = 0.03;
 
-  // Recalculate mouse target every frame using current yawTarget
+function updateCamera() {
+  camera.position.lerp(camTarget, LERP_POS);
+
   mouseYaw   = yawTarget + mouseOffsetX;
   mousePitch = mouseOffsetY;
 
-  // Lerp rotation
-  currentYaw   += (mouseYaw   - currentYaw)   * 0.03;
-  currentPitch += (mousePitch - currentPitch) * 0.03;
+  currentYaw   += (mouseYaw   - currentYaw)   * LERP_ROT;
+  currentPitch += (mousePitch - currentPitch) * LERP_ROT;
 
-  camera.rotation.order = 'YXZ';
   camera.rotation.y = currentYaw;
   camera.rotation.x = currentPitch;
 }
 
-// ── GLTF Loader ────────────────────────────────────────────────────────────
-let mixer = null;
-const clock = new THREE.Clock();
+// ── Shared GLTF Loader ─────────────────────────────────────────────────────
 const loader = new THREE.GLTFLoader();
+const clock  = new THREE.Clock();
 
 loader.load(
-  './models/bt/bt.gltf',  // <-- replace with your model path
+  './models/bt/bt.gltf',
   loadedGltf => {
     gltf = loadedGltf;
     const model = gltf.scene;
-    const box    = new THREE.Box3().setFromObject(model);
-    const size   = box.getSize(new THREE.Vector3());
-    const center = box.getCenter(new THREE.Vector3());
-    const scale  = 1;
-    model.scale.setScalar(scale);
-    model.position.set(0,0,0);
-    const box2 = new THREE.Box3().setFromObject(model);
-    model.position.y -= box2.min.y;
+
+    model.scale.setScalar(1);
+    model.position.set(0, 0, 0);
+
+    const box = new THREE.Box3().setFromObject(model);
+    model.position.y -= box.min.y;
+
     model.traverse(node => {
-      if (node.isMesh) {
-        node.castShadow = true;
-        node.receiveShadow = true;
-        node.frustumCulled = false;
-      }
+      if (!node.isMesh) return;
+      node.castShadow    = false;
+      node.receiveShadow = true;
+      node.frustumCulled = false;
     });
+
     scene.add(model);
-    if (gltf.animations.length > 0) {
+
+    if (gltf.animations?.length) {
       mixer = new THREE.AnimationMixer(model);
       const action = mixer.clipAction(gltf.animations[0]);
       action.setLoop(THREE.LoopOnce, 1);
@@ -293,33 +303,31 @@ loader.load(
       // Pose on frame 0 then pause
       action.play();
       action.paused = true;
-      mixer.update(0);  // evaluate at t=0 to apply the first frame pose
+      mixer.update(0);
     }
   },
   xhr => console.log((xhr.loaded / xhr.total * 100).toFixed(1) + '% loaded'),
-  err => console.error('Error loading model:', err)
+  err => console.error('Error loading model 1:', err)
 );
 
-const loader2 = new THREE.GLTFLoader();
-loader2.load(
-  './models/pilot/scene.gltf',  // <-- replace with your second model path
+loader.load(
+  './models/pilot/scene.gltf',
   loadedGltf => {
     gltf2 = loadedGltf;
     const model = gltf2.scene;
+
     model.scale.setScalar(0.1);
     model.position.set(-0.25, 1, 0.7);
     model.rotation.y = -0.15 * Math.PI;
-    const box = new THREE.Box3().setFromObject(model);
+
     model.traverse(node => {
-      if (node.isMesh) {
-        node.castShadow = true;
-        node.receiveShadow = true;
-        node.frustumCulled = false;
-      }
+      if (!node.isMesh) return;
+      node.castShadow    = false;
+      node.receiveShadow = true;
     });
+
     model2 = model;
-    scene.add(model2);
-    model2.visible = false; // hidden by default
+    model2Loaded = true;
   },
   xhr => console.log('Model 2: ' + (xhr.loaded / xhr.total * 100).toFixed(1) + '% loaded'),
   err => console.error('Error loading model 2:', err)
@@ -329,11 +337,15 @@ loader2.load(
 function animate() {
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
-  if (mixer) mixer.update(delta);
+
+  if (mixer && isAnimating) mixer.update(delta);
+
   updateCamera();
   renderer.render(scene, camera);
 }
 animate();
+
+
 
 // ── Init ───────────────────────────────────────────────────────────────────
 document.getElementById('hud').innerHTML = buildMainHUD();
