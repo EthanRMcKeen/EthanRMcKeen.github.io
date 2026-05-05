@@ -9,60 +9,192 @@
     <div id="canvas-container"></div>
 
     <div id="hud">
-    <!-- Tall left panel -->
-    <div class="panel" id="panel-left">
-        <div class="panel-title">// System Log</div>
-        <div class="panel-content">
-        <p>Model loaded successfully.</p><br>
-        <p>Mesh count: —</p>
-        <p>Triangles: —</p>
-        <p>Animations: —</p><br>
-        <p style="color:rgba(80,160,255,0.5)">────────────</p><br>
-        <p>Use this panel for any text content, logs, or descriptions you want to display.</p><br>
-        <p>Supports scrolling for longer content.</p><br>
-        <p style="color:rgba(80,160,255,0.5)">────────────</p><br>
-        <p>W/A/S/D — Move</p>
-        <p>E/Q — Up / Down</p>
-        <p>Mouse — Look</p>
-        </div>
-    </div>
 
-    <!-- 2x2 right panels -->
-    <div id="panels-right">
-        <div class="panel">
-        <div class="panel-title">// Panel 01</div>
-        <div class="panel-content">
-            <div class="panel-img">[ IMAGE ]</div>
-            <p>Add an image or text here.</p>
+      <!-- ── MAIN VIEW ─────────────────────────────────────────────────── -->
+      <div id="view-main" class="hud-view hud-visible">
+
+        <!-- Tall left panel -->
+        <div class="panel" id="panel-left" data-panel="panel-left">
+          <div class="panel-title">// System Log</div>
+          <div class="panel-content">
+            <p>Model loaded successfully.</p><br>
+            <p>Mesh count: —</p>
+            <p>Triangles: —</p>
+            <p>Animations: —</p><br>
+            <p class="log-divider">────────────</p><br>
+            <p>Use this panel for any text content, logs, or descriptions you want to display.</p><br>
+            <p>Supports scrolling for longer content.</p><br>
+            <p class="log-divider">────────────</p><br>
+            <p>W/A/S/D — Move</p>
+            <p>E/Q — Up / Down</p>
+            <p>Mouse — Look</p>
+          </div>
         </div>
+
+        <!-- 2x2 right panels -->
+        <div id="panels-right">
+          <div class="panel" id="panel-01" data-panel="panel-01">
+            <div class="panel-title">// Panel 01</div>
+            <div class="panel-content">
+              <div class="panel-img">[ IMAGE ]</div>
+              <p>Click to expand.</p>
+            </div>
+          </div>
+          <div class="panel" id="panel-02" data-panel="panel-02">
+            <div class="panel-title">// Panel 02</div>
+            <div class="panel-content">
+              <div class="panel-img">[ IMAGE ]</div>
+              <p>Click to expand.</p>
+            </div>
+          </div>
+          <div class="panel" id="panel-03" data-panel="panel-03">
+            <div class="panel-title">// Panel 03</div>
+            <div class="panel-content">
+              <div class="panel-img">[ IMAGE ]</div>
+              <p>Click to expand.</p>
+            </div>
+          </div>
+          <div class="panel" id="panel-04" data-panel="panel-04">
+            <div class="panel-title">// Panel 04</div>
+            <div class="panel-content">
+              <div class="panel-img">[ IMAGE ]</div>
+              <p>Click to expand.</p>
+            </div>
+          </div>
         </div>
-        <div class="panel">
-        <div class="panel-title">// Panel 02</div>
-        <div class="panel-content">
-            <div class="panel-img">[ IMAGE ]</div>
-            <p>Add an image or text here.</p>
+
+      </div><!-- /view-main -->
+
+
+      <!-- ── DETAIL VIEW: panel-left ────────────────────────────────────── -->
+      <div id="detail-panel-left" class="hud-view hud-hidden detail-container">
+        <div class="detail-header">
+          <span class="detail-back" data-back>← BACK</span>
+          <span class="detail-title">// SYSTEM LOG</span>
         </div>
+        <div class="detail-scroll">
+          <div class="detail-item">
+            <div class="detail-item-title">Item 01</div>
+            <div class="detail-item-body">Details about item 01. Add whatever content you want here.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Item 02</div>
+            <div class="detail-item-body">Details about item 02.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Item 03</div>
+            <div class="detail-item-body">Details about item 03.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Item 04</div>
+            <div class="detail-item-body">Details about item 04.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Item 05</div>
+            <div class="detail-item-body">Details about item 05.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Item 06</div>
+            <div class="detail-item-body">Details about item 06.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Item 07</div>
+            <div class="detail-item-body">Details about item 07.</div>
+          </div>
         </div>
-        <div class="panel">
-        <div class="panel-title">// Panel 03</div>
-        <div class="panel-content">
-            <div class="panel-img">[ IMAGE ]</div>
-            <p>Add an image or text here.</p>
+      </div><!-- /detail-panel-left -->
+
+
+      <!-- ── DETAIL VIEW: panel-01 ──────────────────────────────────────── -->
+      <div id="detail-panel-01" class="hud-view hud-hidden detail-container">
+        <div class="detail-header">
+          <span class="detail-back" data-back>← BACK</span>
+          <span class="detail-title">// PANEL 01</span>
         </div>
+        <div class="detail-scroll">
+          <div class="detail-item">
+            <div class="detail-item-title">Alpha</div>
+            <div class="detail-item-body">Content for panel 01 - alpha entry.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Beta</div>
+            <div class="detail-item-body">Content for panel 01 - beta entry.</div>
+          </div>
         </div>
-        <div class="panel">
-        <div class="panel-title">// Panel 04</div>
-        <div class="panel-content">
-            <div class="panel-img">[ IMAGE ]</div>
-            <p>Add an image or text here.</p>
+      </div><!-- /detail-panel-01 -->
+
+
+      <!-- ── DETAIL VIEW: panel-02 ──────────────────────────────────────── -->
+      <div id="detail-panel-02" class="hud-view hud-hidden detail-container">
+        <div class="detail-header">
+          <span class="detail-back" data-back>← BACK</span>
+          <span class="detail-title">// PANEL 02</span>
         </div>
+        <div class="detail-scroll">
+          <div class="detail-item">
+            <div class="detail-item-title">Report A</div>
+            <div class="detail-item-body">Panel 02 report A content.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Report B</div>
+            <div class="detail-item-body">Panel 02 report B content.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Report C</div>
+            <div class="detail-item-body">Panel 02 report C content.</div>
+          </div>
         </div>
-    </div>
-    </div>
+      </div><!-- /detail-panel-02 -->
+
+
+      <!-- ── DETAIL VIEW: panel-03 ──────────────────────────────────────── -->
+      <div id="detail-panel-03" class="hud-view hud-hidden detail-container">
+        <div class="detail-header">
+          <span class="detail-back" data-back>← BACK</span>
+          <span class="detail-title">// PANEL 03</span>
+        </div>
+        <div class="detail-scroll">
+          <div class="detail-item">
+            <div class="detail-item-title">Log Entry 1</div>
+            <div class="detail-item-body">Panel 03 log entry 1.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Log Entry 2</div>
+            <div class="detail-item-body">Panel 03 log entry 2.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Log Entry 3</div>
+            <div class="detail-item-body">Panel 03 log entry 3.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Log Entry 4</div>
+            <div class="detail-item-body">Panel 03 log entry 4.</div>
+          </div>
+        </div>
+      </div><!-- /detail-panel-03 -->
+
+
+      <!-- ── DETAIL VIEW: panel-04 ──────────────────────────────────────── -->
+      <div id="detail-panel-04" class="hud-view hud-hidden detail-container">
+        <div class="detail-header">
+          <span class="detail-back" data-back>← BACK</span>
+          <span class="detail-title">// PANEL 04</span>
+        </div>
+        <div class="detail-scroll">
+          <div class="detail-item">
+            <div class="detail-item-title">Node A</div>
+            <div class="detail-item-body">Panel 04 node A.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-item-title">Node B</div>
+            <div class="detail-item-body">Panel 04 node B.</div>
+          </div>
+        </div>
+      </div><!-- /detail-panel-04 -->
+
+    </div><!-- /hud -->
 
     <div id="crosshair"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script type="module" src="/3d.js"></script>
   </body>
 </html>

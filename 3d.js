@@ -1,10 +1,17 @@
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+
+import HolographicMaterial from './HolographicMaterialVanilla.js';
+
 // ── Scene ──────────────────────────────────────────────────────────────────
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0a0a0f);
 scene.fog = new THREE.FogExp2(0x0a0a0f, 0.04);
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
-camera.position.set(0, 1.9, -0.1);
+camera.position.set(0, 1.9, -0.14);
 camera.rotation.order = 'YXZ';
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
@@ -18,8 +25,8 @@ renderer.toneMappingExposure = 1.2;
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 // ── Lighting ───────────────────────────────────────────────────────────────
-scene.add(new THREE.AmbientLight(0x334466, 1.5));
-const fillLight = new THREE.DirectionalLight(0x4477aa, 0.8);
+scene.add(new THREE.AmbientLight(0x334466, 3));
+const fillLight = new THREE.DirectionalLight(0x4477aa, 2.5);
 fillLight.position.set(-4, 2, -3);
 scene.add(fillLight);
 
@@ -33,85 +40,117 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// ── Panel Data ─────────────────────────────────────────────────────────────
-const PANEL_DATA = {
-  'panel-left': [
-    { title: 'Item 01', body: 'Details about item 01. Add whatever content you want here.' },
-    { title: 'Item 02', body: 'Details about item 02.' },
-    { title: 'Item 03', body: 'Details about item 03.' },
-    { title: 'Item 04', body: 'Details about item 04.' },
-    { title: 'Item 05', body: 'Details about item 05.' },
-    { title: 'Item 06', body: 'Details about item 06.' },
-    { title: 'Item 07', body: 'Details about item 07.' },
-  ],
-  'panel-01': [
-    { title: 'Alpha', body: 'Content for panel 01 - alpha entry.' },
-    { title: 'Beta',  body: 'Content for panel 01 - beta entry.' },
-  ],
-  'panel-02': [
-    { title: 'Report A', body: 'Panel 02 report A content.' },
-    { title: 'Report B', body: 'Panel 02 report B content.' },
-    { title: 'Report C', body: 'Panel 02 report C content.' },
-  ],
-  'panel-03': [
-    { title: 'Log Entry 1', body: 'Panel 03 log entry 1.' },
-    { title: 'Log Entry 2', body: 'Panel 03 log entry 2.' },
-    { title: 'Log Entry 3', body: 'Panel 03 log entry 3.' },
-    { title: 'Log Entry 4', body: 'Panel 03 log entry 4.' },
-  ],
-  'panel-04': [
-    { title: 'Node A', body: 'Panel 04 node A.' },
-    { title: 'Node B', body: 'Panel 04 node B.' },
-  ],
-};
+/// ── Title Text ─────────────────────────────────────────
+const text_loader = new FontLoader();
+const font = await text_loader.loadAsync( './fonts/Starjedi.json' );
+const title_geometry = new TextGeometry( 'ETHAN  MCKEEN', {
+	font: font,
+	size: 10,
+	depth: 2,
+	curveSegments: 12
+} );
+
+const font_arial = await text_loader.loadAsync( 'fonts/Ubuntu.json' );
+const subtitle_geometry = new TextGeometry( 'Electrical & Computer Engineer | Machine Learning Specialist', {
+  font: font_arial,
+  size: 7,
+  depth: 2,
+  curveSegments: 12
+} );
+
+const holographicMaterial = new HolographicMaterial();
+const titleMesh = new THREE.Mesh( title_geometry, holographicMaterial );
+titleMesh.scale.set(0.002, 0.002, 0.002);
+titleMesh.position.set(0, 1.92, 0.08);
+titleMesh.rotation.y = Math.PI;
+title_geometry.center();
+
+const subtitleMesh = new THREE.Mesh( subtitle_geometry, holographicMaterial );
+subtitleMesh.scale.set(0.001, 0.001, 0.001);
+subtitleMesh.position.set(0, 1.89, 0.08);
+subtitleMesh.rotation.y = Math.PI;
+subtitle_geometry.center();
+
+scene.add( titleMesh );
+scene.add( subtitleMesh );
+
 
 // ── Camera States ──────────────────────────────────────────────────────────
 const STATES = {
   DEFAULT: {
-    position:  new THREE.Vector3(0, 1.9, -0.14),
+    position:  new THREE.Vector3(0, 1.85, -0.14),
     yawOffset: Math.PI,
+    pitchOffset: 0,
   },
+  // Transient collapse state shared by all panels
   COLLAPSE: {
-    position:  new THREE.Vector3(0, 1.9, -0.14),
+    position:  new THREE.Vector3(0, 1.85, -0.14), //0,1.9, -0.14
     yawOffset: Math.PI,
+    pitchOffset: 0,
   },
-  FOCUS: {
+  // Per-panel focus states — tweak position/yawOffset for each panel
+  'focus-panel-left': {
     position:  new THREE.Vector3(0.4, 1.5, 1.7),
     yawOffset: 0.1 * Math.PI,
+    pitchOffset: 0.02 * Math.PI,
+  },
+  'focus-panel-01': {
+    position:  new THREE.Vector3(0.6, 2, 1.5),
+    yawOffset: 0.15 * Math.PI,
+    pitchOffset: -0.1 * Math.PI,
+  },
+  'focus-panel-02': {
+    position:  new THREE.Vector3(-0.2, 1.5, 1.3),
+    yawOffset: -0.06 * Math.PI,
+    pitchOffset: 0.12 * Math.PI,
+  },
+  'focus-panel-03': {
+    position:  new THREE.Vector3(0.8, 1, 1),
+    yawOffset: 0.3 * Math.PI,
+    pitchOffset: 0.18 * Math.PI,
+  },
+  'focus-panel-04': {
+    position:  new THREE.Vector3(-0.8, 2.3, -0.8),
+    yawOffset: -0.8 * Math.PI,
+    pitchOffset: -0.13 * Math.PI,
   },
 };
 
 let currentState  = 'DEFAULT';
 let camTarget     = STATES.DEFAULT.position.clone();
 let yawTarget     = STATES.DEFAULT.yawOffset;
-let activePanel   = null;
+let pitchTarget   = STATES.DEFAULT.pitchOffset;
+let activePanel   = null;   // e.g. 'panel-01'
 let collapseTimer = null;
-let gltf = null;
+
+let mouseYaw   = Math.PI, mousePitch  = 0;
+let currentYaw = Math.PI, currentPitch = 0;
+const LOOK_RANGE = Math.PI / 6;
+let mouseOffsetX = 0, mouseOffsetY = 0;
+
+// ── Animation state flags ──────────────────────────────────────────────────
+let isAnimating = false;
+let mixer = null;
+let gltf  = null;
 
 let gltf2 = null;
 let model2 = null;
 let model2Timer = null;
 let model2Loaded = false;
 
-let mouseYaw = Math.PI, mousePitch = 0;
-let currentYaw = Math.PI, currentPitch = 0;
-const LOOK_RANGE = Math.PI / 6;
-let mouseOffsetX = 0, mouseOffsetY = 0;
-
-// ── Animation state flags ──────────────────────────────────────────────────
-let isAnimating = false; // true only while the GLTF animation is playing
-let mixer = null;
-
 // ── State Machine ──────────────────────────────────────────────────────────
 function transitionTo(stateName, panelId) {
   if (stateName === currentState) return;
   currentState = stateName;
-  camTarget  = STATES[stateName].position.clone();
-  yawTarget  = STATES[stateName].yawOffset;
+
+  const state = STATES[stateName];
+  camTarget = state.position.clone();
+  yawTarget = state.yawOffset;
+  pitchTarget = state.pitchOffset;
 
   if (stateName === 'COLLAPSE') {
     activePanel = panelId;
-    collapseHUD();
+    collapseMainView();
 
     if (mixer && gltf?.animations?.length) {
       const action = mixer.clipAction(gltf.animations[0]);
@@ -119,22 +158,24 @@ function transitionTo(stateName, panelId) {
       action.paused = false;
       action.play();
       isAnimating = true;
-
-      // Stop ticking mixer once the clip ends
       mixer.addEventListener('finished', () => { isAnimating = false; }, { once: true });
     }
 
-    collapseTimer = setTimeout(() => transitionTo('FOCUS'), 1200);
+    collapseTimer = setTimeout(() => transitionTo('focus-' + panelId), 1200);
   }
 
-  if (stateName === 'FOCUS') {
-    showDetailHUD(activePanel);
+  if (stateName.startsWith('focus-')) {
+    showDetailView(activePanel);
 
-    // Add model2 to scene lazily on first FOCUS (avoids per-frame cost until needed)
+    // show pilot
     if (model2Loaded && model2) {
       if (!model2.parent) scene.add(model2);
       model2Timer = setTimeout(() => { model2.visible = true; }, 100);
     }
+
+    //hide title and subtitle
+    scene.remove(titleMesh);
+    scene.remove(subtitleMesh);
   }
 
   if (stateName === 'DEFAULT') {
@@ -142,101 +183,70 @@ function transitionTo(stateName, panelId) {
     clearTimeout(model2Timer);
     activePanel = null;
     if (model2) model2.visible = false;
-    showMainHUD();
+    showMainView();
   }
 }
 
-// ── HUD Animations ─────────────────────────────────────────────────────────
-function collapseHUD() {
-  document.querySelectorAll('.panel').forEach((p, i) => {
-    p.style.transition = `transform 0.3s ease ${i * 0.08}s, opacity 0.3s ease ${i * 0.08}s`;
-    p.style.transform  = 'scaleY(0)';
-    p.style.opacity    = '0';
+// ── View helpers (class toggling only, no innerHTML) ───────────────────────
+function setViewVisible(id) {
+  // Hide all views, then show the requested one
+  document.querySelectorAll('.hud-view').forEach(v => {
+    v.classList.remove('hud-visible');
+    v.classList.add('hud-hidden');
+  });
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.remove('hud-hidden');
+    el.classList.add('hud-visible');
+  }
+}
+
+function collapseMainView() {
+  document.querySelectorAll('#view-main .panel').forEach((p, i) => {
+    p.style.transitionDelay = `${i * 0.08}s`;
+    p.classList.add('collapsing');
   });
 }
 
-function showMainHUD() {
-  document.getElementById('hud').innerHTML = buildMainHUD();
+function showMainView() {
+  setViewVisible('view-main');
+  // Animate panels back in
   requestAnimationFrame(() => {
-    document.querySelectorAll('.panel').forEach((p, i) => {
-      p.style.transition = `transform 0.4s ease ${i * 0.08}s, opacity 0.4s ease ${i * 0.08}s`;
-      p.style.transform  = 'scaleY(0)';
-      p.style.opacity    = '0';
-      requestAnimationFrame(() => {
-        p.style.transform = 'scaleY(1)';
-        p.style.opacity   = '1';
-      });
-    });
-    attachPanelListeners();
-  });
-}
-
-function showDetailHUD(panelId) {
-  const items = PANEL_DATA[panelId] || [];
-  const hud   = document.getElementById('hud');
-
-  hud.innerHTML = `
-    <div class="detail-container">
-      <div class="detail-header">
-        <span class="detail-back" id="back-btn">← BACK</span>
-        <span class="detail-title">// ${panelId.replace('-', ' ').toUpperCase()}</span>
-      </div>
-      <div class="detail-scroll">
-        ${items.map((item, i) => `
-          <div class="detail-item" style="animation-delay:${i * 0.08 + 0.2}s">
-            <div class="detail-item-title">${item.title}</div>
-            <div class="detail-item-body">${item.body}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
-
-  document.getElementById('back-btn').addEventListener('click', () => {
-    transitionTo('DEFAULT');
-  });
-}
-
-// ── Build Main HUD HTML ────────────────────────────────────────────────────
-function buildMainHUD() {
-  return `
-    <div class="panel" id="panel-left">
-      <div class="panel-title">// System Log</div>
-      <div class="panel-content">
-        <p>Model loaded successfully.</p><br>
-        <p>W/A/S/D — Move</p>
-        <p>E/Q — Up / Down</p>
-        <p>Mouse — Look</p>
-      </div>
-    </div>
-    <div id="panels-right">
-      <div class="panel" id="panel-01">
-        <div class="panel-title">// Panel 01</div>
-        <div class="panel-content"><div class="panel-img">[ IMAGE ]</div><p>Click to expand.</p></div>
-      </div>
-      <div class="panel" id="panel-02">
-        <div class="panel-title">// Panel 02</div>
-        <div class="panel-content"><div class="panel-img">[ IMAGE ]</div><p>Click to expand.</p></div>
-      </div>
-      <div class="panel" id="panel-03">
-        <div class="panel-title">// Panel 03</div>
-        <div class="panel-content"><div class="panel-img">[ IMAGE ]</div><p>Click to expand.</p></div>
-      </div>
-      <div class="panel" id="panel-04">
-        <div class="panel-title">// Panel 04</div>
-        <div class="panel-content"><div class="panel-img">[ IMAGE ]</div><p>Click to expand.</p></div>
-      </div>
-    </div>
-  `;
-}
-
-function attachPanelListeners() {
-  document.querySelectorAll('.panel').forEach(panel => {
-    panel.addEventListener('click', () => {
-      if (currentState === 'DEFAULT') transitionTo('COLLAPSE', panel.id);
+    document.querySelectorAll('#view-main .panel').forEach((p, i) => {
+      p.classList.remove('collapsing');
+      p.style.transitionDelay = `${i * 0.08}s`;
     });
   });
 }
+
+function showDetailView(panelId) {
+  const detailId = 'detail-' + panelId;
+  setViewVisible(detailId);
+
+  // Re-trigger item animations by toggling the class
+  const detail = document.getElementById(detailId);
+  if (!detail) return;
+  detail.querySelectorAll('.detail-item').forEach(item => {
+    item.classList.remove('item-visible');
+    // Force reflow so removing + re-adding the class restarts the animation
+    void item.offsetWidth;
+    item.classList.add('item-visible');
+  });
+}
+
+// ── Back buttons ───────────────────────────────────────────────────────────
+document.querySelectorAll('[data-back]').forEach(btn => {
+  btn.addEventListener('click', () => transitionTo('DEFAULT'));
+});
+
+// ── Panel click listeners ──────────────────────────────────────────────────
+document.querySelectorAll('.panel[data-panel]').forEach(panel => {
+  panel.addEventListener('click', () => {
+    if (currentState === 'DEFAULT') {
+      transitionTo('COLLAPSE', panel.dataset.panel);
+    }
+  });
+});
 
 // ── Mouse look ─────────────────────────────────────────────────────────────
 let mouseDirty = false;
@@ -252,7 +262,7 @@ window.addEventListener('mousemove', e => {
   });
 });
 
-// ── Update camera (lerp position) ─────────────────────────────────────────
+// ── Camera lerp ───────────────────────────────────────────────────────────
 const LERP_POS = 0.02;
 const LERP_ROT = 0.03;
 
@@ -260,7 +270,7 @@ function updateCamera() {
   camera.position.lerp(camTarget, LERP_POS);
 
   mouseYaw   = yawTarget + mouseOffsetX;
-  mousePitch = mouseOffsetY;
+  mousePitch = pitchTarget + mouseOffsetY;
 
   currentYaw   += (mouseYaw   - currentYaw)   * LERP_ROT;
   currentPitch += (mousePitch - currentPitch) * LERP_ROT;
@@ -269,8 +279,8 @@ function updateCamera() {
   camera.rotation.x = currentPitch;
 }
 
-// ── Shared GLTF Loader ─────────────────────────────────────────────────────
-const loader = new THREE.GLTFLoader();
+// ── GLTF Loaders ──────────────────────────────────────────────────────────
+const loader = new GLTFLoader();
 const clock  = new THREE.Clock();
 
 loader.load(
@@ -283,13 +293,12 @@ loader.load(
     model.position.set(0, 0, 0);
 
     const box = new THREE.Box3().setFromObject(model);
-    model.position.y -= box.min.y;
+    //model.position.y -= box.min.y;
 
     model.traverse(node => {
       if (!node.isMesh) return;
       node.castShadow    = false;
       node.receiveShadow = true;
-      node.frustumCulled = false;
     });
 
     scene.add(model);
@@ -299,8 +308,6 @@ loader.load(
       const action = mixer.clipAction(gltf.animations[0]);
       action.setLoop(THREE.LoopOnce, 1);
       action.clampWhenFinished = true;
-
-      // Pose on frame 0 then pause
       action.play();
       action.paused = true;
       mixer.update(0);
@@ -333,20 +340,19 @@ loader.load(
   err => console.error('Error loading model 2:', err)
 );
 
-// ── Animate ────────────────────────────────────────────────────────────────
+// ── Render loop ────────────────────────────────────────────────────────────
 function animate() {
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
-
   if (mixer && isAnimating) mixer.update(delta);
-
   updateCamera();
   renderer.render(scene, camera);
+
+  const tick = () => {
+    holographicMaterial.update() // Update the holographic material time uniform
+    window.requestAnimationFrame(tick)
+  }
+
+  tick();
 }
 animate();
-
-
-
-// ── Init ───────────────────────────────────────────────────────────────────
-document.getElementById('hud').innerHTML = buildMainHUD();
-attachPanelListeners();

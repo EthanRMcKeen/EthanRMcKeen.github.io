@@ -1,29 +1,15 @@
-body {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  background-color: #000;
-}
-
-header {
-  margin-top: 3em;
-  text-align: center;
-  color: white;
-}
-
-header h1 {
-  font-size: 2em;
-  font-weight: 900;
-}
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #0a0a0f; overflow: hidden; font-family: 'Courier New', monospace; }
 
 #canvas-container { position: fixed; inset: 0; z-index: 0; }
 
-/* HUD overlay */
+/* ── HUD overlay ─────────────────────────────────────────────────────────── */
 #hud {
   position: fixed;
-  inset: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65vh;
   z-index: 10;
   pointer-events: none;
   display: flex;
@@ -33,133 +19,136 @@ body { background: #0a0a0f; overflow: hidden; font-family: 'Courier New', monosp
   gap: 16px;
 }
 
-/* Tall left panel */
+/* ── View switching ──────────────────────────────────────────────────────── */
+/*  Every direct child of #hud is a "view". Only .hud-visible is shown.      */
+.hud-view {
+  display: none;
+  pointer-events: none;
+}
+.hud-view.hud-visible {
+  display: contents; /* lets children participate in #hud's flex layout */
+  pointer-events: auto;
+}
+/* detail-container is a single flex column, not display:contents */
+.detail-container.hud-visible {
+  display: flex;
+}
+
+/* ── Panel shared styles ─────────────────────────────────────────────────── */
 .panel {
-    pointer-events: all;
-    background: rgba(0, 60, 140, 0.15);
-    border: 1px solid rgba(80, 160, 255, 0.4);
-    border-radius: 8px;
-    backdrop-filter: blur(12px);
-    box-shadow:
+  pointer-events: all;
+  background: rgba(0, 60, 140, 0.15);
+  border: 1px solid rgba(80, 160, 255, 0.4);
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  box-shadow:
     0 0 20px rgba(40, 120, 255, 0.2),
     inset 0 0 30px rgba(0, 80, 200, 0.08);
-    color: rgba(140, 200, 255, 0.9);
-    cursor: default;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
+  color: rgba(140, 200, 255, 0.9);
+  cursor: default;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.3s ease, opacity 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 .panel::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(80,160,255,0.05) 0%, transparent 60%);
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(80,160,255,0.05) 0%, transparent 60%);
+  pointer-events: none;
 }
 .panel:hover {
-    border-color: rgba(80, 160, 255, 0.8);
-    box-shadow:
+  border-color: rgba(80, 160, 255, 0.8);
+  box-shadow:
     0 0 40px rgba(40, 120, 255, 0.4),
     inset 0 0 30px rgba(0, 80, 200, 0.15);
 }
-
-.panel-title {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(80, 160, 255, 0.7);
-    padding: 12px 14px 8px;
-    border-bottom: 1px solid rgba(80, 160, 255, 0.2);
-}
-.panel-content {
-    padding: 14px;
-    font-size: 11px;
-    line-height: 1.7;
-    color: rgba(160, 210, 255, 0.75);
-    overflow-y: auto;
-    height: calc(100% - 37px);
-}
-.panel-content::-webkit-scrollbar { width: 3px; }
-.panel-content::-webkit-scrollbar-track { background: transparent; }
-.panel-content::-webkit-scrollbar-thumb { background: rgba(80,160,255,0.3); border-radius: 2px; }
-
-#panel-left {
-    width: 220px;
-    height: calc(100vh - 48px);
-}
-
-/* Right grid: 2x2 */
-#panels-right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 16px;
-    height: calc(100vh - 48px);
-    pointer-events: none;
-}
-#panels-right .panel {
-    width: 200px;
-    height: calc((100vh - 48px - 16px) / 2);
-}
-
-.panel-img {
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    border: 1px solid rgba(80,160,255,0.2);
-    background: rgba(0,40,100,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    color: rgba(80,160,255,0.4);
-    letter-spacing: 0.1em;
-}
-
-/* Scanline effect */
+/* Scanline */
 .panel::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
     rgba(0, 40, 120, 0.03) 2px,
     rgba(0, 40, 120, 0.03) 4px
-    );
-    pointer-events: none;
+  );
+  pointer-events: none;
 }
 
-/* Crosshair */
-#crosshair {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
-    pointer-events: none;
-    z-index: 20;
-    opacity: 0.5;
+.panel-title {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(80, 160, 255, 0.7);
+  padding: 12px 14px 8px;
+  border-bottom: 1px solid rgba(80, 160, 255, 0.2);
 }
-#crosshair::before, #crosshair::after {
-    content: '';
-    position: absolute;
-    background: rgba(80,160,255,0.8);
+.panel-content {
+  padding: 14px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: rgba(160, 210, 255, 0.75);
+  overflow-y: auto;
+  height: calc(100% - 37px);
 }
-#crosshair::before { width: 1px; height: 100%; left: 50%; top: 0; }
-#crosshair::after  { width: 100%; height: 1px; top: 50%; left: 0; }
+.panel-content::-webkit-scrollbar { width: 3px; }
+.panel-content::-webkit-scrollbar-track { background: transparent; }
+.panel-content::-webkit-scrollbar-thumb { background: rgba(80,160,255,0.3); border-radius: 2px; }
 
-/* Detail view */
+/* ── Main view layout ────────────────────────────────────────────────────── */
+#view-main {
+  /* display:contents means its children join #hud's flex row directly */
+}
+
+#panel-left {
+  width: 30%;
+  height: calc(65vh - 48px);
+}
+
+#panels-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  height: calc(65vh - 48px);
+  pointer-events: none;
+}
+#panels-right .panel {
+  width: 200px;
+  height: calc((65vh - 48px - 16px) / 2);
+}
+
+.panel-img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(80,160,255,0.2);
+  background: rgba(0,40,100,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: rgba(80,160,255,0.4);
+  letter-spacing: 0.1em;
+}
+
+/* ── Panel collapse animation ────────────────────────────────────────────── */
+.panel.collapsing {
+  transform: scaleY(0);
+  opacity: 0;
+}
+
+/* ── Detail (focus) view ─────────────────────────────────────────────────── */
 .detail-container {
   pointer-events: all;
-  display: flex;
   flex-direction: column;
   width: 520px;
-  max-height: calc(100vh - 48px);
+  max-height: calc(50vh - 48px);
   background: rgba(0, 60, 140, 0.15);
   border: 1px solid rgba(80, 160, 255, 0.4);
   border-radius: 8px;
@@ -198,15 +187,32 @@ body { background: #0a0a0f; overflow: hidden; font-family: 'Courier New', monosp
 .detail-scroll::-webkit-scrollbar-track { background: transparent; }
 .detail-scroll::-webkit-scrollbar-thumb { background: rgba(80,160,255,0.3); border-radius: 2px; }
 
+/* ── Detail items ────────────────────────────────────────────────────────── */
 .detail-item {
   background: rgba(0, 40, 100, 0.3);
   border: 1px solid rgba(80, 160, 255, 0.2);
   border-radius: 6px;
   padding: 12px 14px;
+  /* Hidden by default; JS adds .item-visible to re-trigger the animation */
   opacity: 0;
   transform: translateY(10px);
+}
+.detail-item.item-visible {
   animation: itemIn 0.4s ease forwards;
 }
+.detail-item:nth-child(1).item-visible  { animation-delay: 0.20s; }
+.detail-item:nth-child(2).item-visible  { animation-delay: 0.28s; }
+.detail-item:nth-child(3).item-visible  { animation-delay: 0.36s; }
+.detail-item:nth-child(4).item-visible  { animation-delay: 0.44s; }
+.detail-item:nth-child(5).item-visible  { animation-delay: 0.52s; }
+.detail-item:nth-child(6).item-visible  { animation-delay: 0.60s; }
+.detail-item:nth-child(7).item-visible  { animation-delay: 0.68s; }
+.detail-item:nth-child(8).item-visible  { animation-delay: 0.76s; }
+
+@keyframes itemIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .detail-item-title {
   font-size: 11px;
   letter-spacing: 0.15em;
@@ -220,6 +226,25 @@ body { background: #0a0a0f; overflow: hidden; font-family: 'Courier New', monosp
   line-height: 1.7;
 }
 
-@keyframes itemIn {
-  to { opacity: 1; transform: translateY(0); }
+/* ── Crosshair ───────────────────────────────────────────────────────────── */
+#crosshair {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0.5;
 }
+#crosshair::before, #crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(80,160,255,0.8);
+}
+#crosshair::before { width: 1px; height: 100%; left: 50%; top: 0; }
+#crosshair::after  { width: 100%; height: 1px; top: 50%; left: 0; }
+
+/* ── Utility ─────────────────────────────────────────────────────────────── */
+.log-divider { color: rgba(80, 160, 255, 0.5); }
